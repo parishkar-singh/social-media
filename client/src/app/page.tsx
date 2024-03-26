@@ -1,8 +1,12 @@
 import Image from "next/image";
+import ThemeToggle from "@/Components/ThemeToggle";
+import React from "react";
+import Navbar from "@/Components/UI/Navbar";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col  w-full h-screen items-center justify-between ">
+      <Navbar/>
 
     </main>
   );
