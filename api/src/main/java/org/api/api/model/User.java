@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 @Data // getters, setters, toString, equals, and hashCode methods.
 @NoArgsConstructor
@@ -18,7 +17,7 @@ import java.util.Collection;
 public class User {
 
     @Id
-    private String user_id;
+    private String userId;
 
 
     @NotBlank(message = "Name is required")
@@ -39,10 +38,9 @@ public class User {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "Password must be at least 8 characters long and contain at least one letter and one number")
     private String password;
 
-    private Collection<String> followers =new ArrayList<>();
-    private Collection<String> following =new ArrayList<>();
+    private ArrayList<String> followers =new ArrayList<>();
+    private ArrayList<String> following =new ArrayList<>();
 
-    private Collection<String> blogs = new ArrayList<>();
-
+    private ArrayList<String> blogIds = new ArrayList<>();
 
 }

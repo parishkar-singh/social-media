@@ -1,21 +1,17 @@
 package org.api.api.service;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
 
-import org.api.api.model.Blog;
-import org.api.api.model.Comment;
 import org.api.api.model.User;
 import org.api.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.List;
-import java.util.Optional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +21,6 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private BlogService blogService;
 
     @SuppressWarnings("null")
     @Override
@@ -42,8 +35,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String username){
-        Optional<User> p = userRepository.findById(username);
+    public User getUserById(@Valid @NotNull String userId){
+        System.out.println();
+        Optional<User> p = userRepository.findById(userId);
         if (p.isPresent()) {
             return p.get();
         }
@@ -61,9 +55,9 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public User updateUser(String userName, User updatedUser) {
+    public User updateUser(@Valid @NotNull String userId, @Valid @NotNull User updatedUser) {
         try {
-            User existingUser = getUser(userName);
+            User existingUser = getUserById(userId);
             if (existingUser != null) {
                 if (updatedUser.getName() != null) {
                     existingUser.setName(updatedUser.getName());
@@ -77,6 +71,15 @@ public class UserServiceImpl implements UserService {
                 if (updatedUser.getUsername() != null) {
                     existingUser.setUsername(updatedUser.getUsername());
                 }
+                if(updatedUser.getFollowing() != null){
+                    existingUser.setFollowing(updatedUser.getFollowing());
+                }
+                if(updatedUser.getFollowers() != null){
+                    existingUser.setFollowers(updatedUser.getFollowers());
+                }
+                if(updatedUser.getBlogIds() != null){
+                    existingUser.setBlogIds(updatedUser.getBlogIds());
+                }
                 return userRepository.save(existingUser);
             } else {
                 throw new RuntimeException("User not found");
@@ -88,10 +91,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String username){
+    public void deleteUser(@Valid @NotNull String userId){
         try {
-            if(getUser(username) != null)
-            userRepository.deleteById(username);
+            if(getUserById(userId) != null)
+            userRepository.deleteById(userId);
         } catch (Exception e) {
             UserServiceLogger.logError("User not Deleted: "+e.getMessage());
             throw e;
@@ -99,16 +102,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addFollower(String username, String toBeFollowedUsername){
+    public void addFollower(@Valid @NotNull String userId, @Valid @NotNull String toBeFolloweduserId){
         try {
-            User follower = getUser(username);
-            User followee = getUser(toBeFollowedUsername);
+            User follower = getUserById(userId);
+            User followee = getUserById(toBeFolloweduserId);
     
-            follower.getFollowing().add(toBeFollowedUsername);
-            follower.getFollowers().add(username);
+            follower.getFollowing().add(toBeFolloweduserId);
+            followee.getFollowers().add(userId);
     
-            updateUser(toBeFollowedUsername, followee);
-            updateUser(username, follower);
+            updateUser(toBeFolloweduserId, followee);
+            updateUser(userId, follower);
         } catch (Exception e) {
             UserServiceLogger.logError("Error while adding follower: "+e.getMessage());
             throw e;
@@ -116,16 +119,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeFollower(String username, String toBeRemovedUsername){
+    public void removeFollower(@Valid @NotNull String userId, @Valid @NotNull String toBeRemoveduserId){
         try{
-            User follower = getUser(username);
-            User followee = getUser(toBeRemovedUsername);
+            User follower = getUserById(userId);
+            User followee = getUserById(toBeRemoveduserId);
 
-            follower.getFollowing().remove(toBeRemovedUsername);
-            followee.getFollowers().remove(username);
+            follower.getFollowing().remove(toBeRemoveduserId);
+            followee.getFollowers().remove(userId);
 
-            updateUser(toBeRemovedUsername, followee);
-            updateUser(username, follower);
+            updateUser(toBeRemoveduserId, followee);
+            updateUser(userId, follower);
 
         } catch (Exception e) {
             UserServiceLogger.logError("Error while adding follower: "+e.getMessage());
@@ -134,26 +137,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewBlog(String username, Blog blog){
-        blogService.addNewBlog(username, blog);
-    }
-    @Override
-    public void editBlog(String blog_id, Blog updatedBlog){
-        blogService.editBlog(blog_id, updatedBlog);
-    }
-    @Override
-    public void deleteBlog(String blog_id){
-        blogService.deleteBlog(blog_id);
+    public List<String> getAllFollowers(@Valid @NotNull String userId){
+        try {
+            return (List<String>) getUserById(userId).getBlogIds(); 
+        } catch (Exception e) {
+            UserServiceLogger.logError("Error while getting follower: "+e.getMessage());
+            throw e;
+        }
+        
     }
 
     @Override
-    public void addComment(String username, String blog_id, Comment comment){
-        blogService.addComment(username, blog_id, comment);
+    public List<String> getAllFollowing(@Valid @NotNull String userId){
+        try {
+            return (List<String>) getUserById(userId).getBlogIds();
+        } catch (Exception e) {
+            UserServiceLogger.logError("Error while getting following: "+e.getMessage());
+            throw e;
+        }
     }
-
-    @Override
-    public void likeBlog(String username, String blog_id){
-        blogService.likeBlog(username, blog_id);
-    }
-
 }

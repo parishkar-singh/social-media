@@ -1,20 +1,27 @@
 package org.api.api.controller;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.api.api.forms.UserRoleForm;
+import java.util.List;
+
+import org.api.api.model.Blog;
+import org.api.api.model.Comment;
+import org.api.api.model.Reply;
 import org.api.api.model.User;
+import org.api.api.service.BlogService;
 import org.api.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.util.List;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +31,9 @@ public class UserController {
     @Autowired
     private  UserService userService;
     org.api.api.utils.Logger userControllerLogger = new org.api.api.utils.Logger("User Controller");
+
+    @Autowired
+    private BlogService blogService; 
     
     @PostMapping("/api/user")
     public User createUser(@RequestBody @Valid @NotNull User user) {
@@ -33,7 +43,7 @@ public class UserController {
             return createdUser;
         } catch (Exception e) {
             userControllerLogger.logError("Error creating User");
-            return null;
+            throw e;
         }
     }
 
@@ -41,37 +51,156 @@ public class UserController {
     public List<User> getUsers() {
         try {
             List<User> users = userService.getUsers();
-            userControllerLogger.logSuccess("Users Fetched");
+            userControllerLogger.logSuccess("User Fetched");
             return users;
         } catch (Exception e) {
-            userControllerLogger.logError("Error Getting Users");
+            userControllerLogger.logError("Error Getting the User");
+            throw e;
+        }
+    }
+
+    @GetMapping("/api/user/{userId}")
+    public User getUser(@PathVariable("userId") String userId) {
+        try {
+            User user = userService.getUserById(userId);
+            System.out.println(user);
+            userControllerLogger.logSuccess("User Fetched");
+            return user;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error Getting User: " + e.getMessage());
             return null;
         }
     }
 
 
-    @PutMapping("/api/user")
-    public User updateUser(@RequestBody @Valid @NotNull User user) {
+    @PutMapping("/api/user/{userId}")
+    public User updateUser(@RequestBody @Valid @NotNull User user, @PathVariable("userId") String userId) {
         try {
-            String username = user.getUsername();
-            User updatedUser = userService.updateUser(username, user);
+            User updatedUser = userService.updateUser(userId, user);
             userControllerLogger.logSuccess("Updated User: " + updatedUser);
             return updatedUser;
         } catch (Exception e) {
             userControllerLogger.logError("Error Updating User");
-            return null;
+            throw e;
         }
     }
 
-    @DeleteMapping("/api/user/{username}")
-    public void deleteUser(@PathVariable("username") String username){
+    @DeleteMapping("/api/user/{userId}")
+    public void deleteUser(@PathVariable("userId") String userId){
         try {
-            userService.deleteUser(username);
-            userControllerLogger.logSuccess("Deleted User " + username);
+            userService.deleteUser(userId);
+            userControllerLogger.logSuccess("Deleted User " + userId);
         } catch (Exception e) {
             userControllerLogger.logError("Error Deleting User");
+            throw e;
         }
     }
 
-    
+    @PostMapping("/api/user/blog/{userId}")
+    public void addBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
+        try {
+            String blogId = blogService.addNewBlog(userId, blog);
+            userService.getUserById(userId).getBlogIds().add(blogId);
+            userControllerLogger.logSuccess("Added Blog");
+        } catch (Exception e) {
+            userControllerLogger.logError("Error adding blog");
+            throw e;
+        }
+    }
+
+    @GetMapping("/api/user/blog/{userId}/{blogId}")
+    public Blog getBlog(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId){
+        try {
+            Blog temp = blogService.getBlog(userId, blogId);
+            userControllerLogger.logSuccess("Got User's Blog ");
+            return temp;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error getting your blog");
+            throw e;
+        }
+    }
+
+    @GetMapping("/api/user/blog/{userId}")
+    public List<Blog> getAllBlog(@PathVariable("userId") String userId){
+        try {
+            List<Blog> temp = blogService.getAllBlogs(userId);
+            userControllerLogger.logSuccess("Got User's Blog ");
+            return temp;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error getting user's blog");
+            throw e;
+        }
+    }
+
+    @PutMapping("/api/user/blog/{userId}")
+    public Blog editBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
+        try {
+            Blog temp = blogService.editBlog(userId, blog);
+            userControllerLogger.logSuccess("Edited User's Blog ");
+            return temp;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error editting user's blog");
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/api/user/blog/{userId}/{blogId}")
+    public void deleteBlog(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId){
+        try {
+            blogService.deleteBlog(userId, blogId);
+            userControllerLogger.logSuccess("Deleted User's Blog ");
+        } catch (Exception e) {
+            userControllerLogger.logError("Error deleting your blog");
+            throw e;
+        }
+    }
+
+    @PostMapping("/api/user/blog/{userId}/{blogId}")
+    public Comment addComment(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId, @RequestBody @Valid @NotNull Comment comment){
+        try {
+            Comment temp = blogService.addComment(userId, blogId, comment);
+            userControllerLogger.logSuccess("Added User's comment on Blog ");
+            return temp;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error commenting the blog");
+            throw e;
+        }
+    }
+
+    @PostMapping("/api/user/blog/{userId}/{blogId}/{commentId}")
+    public Reply addReply(@RequestBody @Valid @NotNull Reply reply, @PathVariable("userId") String userId, @PathVariable("blogId") String blogId, @PathVariable("commentId") String commentId){
+        try {
+            Reply temp = blogService.addReply(userId, blogId, commentId, reply);
+            userControllerLogger.logSuccess("Added User's reply on comment");
+            return temp;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error adding reply to the blog");
+            throw e;
+        }
+    }
+
+    @PostMapping("/api/user/{userId_1}/{userId_2}")
+    public void addFollower(@PathVariable("userId_1") String follower, @PathVariable("userId_2") String followee){
+        try {
+            userService.addFollower(follower, followee);
+            userControllerLogger.logSuccess("Added Follower");
+        } catch (Exception e) {
+            userControllerLogger.logError("Error adding follower");
+            throw e;
+        }
+
+    }
+
+    @PutMapping("/api/user/{userId_1}/{userId_2}")
+    public void removeFollower(@PathVariable("userId_1") String follower, @PathVariable("userId_2") String followee){
+        try {
+            userService.removeFollower(follower, followee);
+            userControllerLogger.logSuccess("Removed Follower");
+        } catch (Exception e) {
+            userControllerLogger.logError("Error removing follower");
+            throw e;
+        }
+    }
+
+
 }
