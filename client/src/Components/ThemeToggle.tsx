@@ -18,7 +18,7 @@ const ThemeToggle = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark')
     }
     return (
-        <button className={`transition bg-neutral-900 dark:bg-gray-100 duration-300 font-bold py-2 px-8 rounded-3xl`} onClick={handleThemeSwitch} >
+        <button className={`transition dark:bg-neutral-900 bg-white duration-300 font-bold p-2 rounded-3xl`} onClick={handleThemeSwitch} >
             {theme!=='dark'?<MoonStar className={`text-yellow-500`} />:<Sun className={`text-yellow-500 `} />}
         </button>
 
