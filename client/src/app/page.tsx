@@ -4,7 +4,6 @@ import React from "react";
 import Navbar from "@/Components/UI/Navbar";
 import Header from "@/Containers/Header";
 import Trending from "@/Containers/Trending";
-import BlogItem from "@/Components/Item/BlogItem";
 import Articles from "@/Containers/Articles";
 
 export default function Home() {
