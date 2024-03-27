@@ -17,7 +17,7 @@ import org.api.api.repository.AuthRepository;
 public class AuthController {
     private final AuthRepository authRepository;
     private final PasswordEncoder passwordEncoder;
-
+    org.api.api.utils.Logger authControllerLogger = new org.api.api.utils.Logger("Auth Controller");
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Auth user) {
         try {
@@ -26,8 +26,10 @@ public class AuthController {
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             authRepository.save(user);
+            authControllerLogger.logSuccess("User registered");
             return ResponseEntity.ok("User registered successfully");
         } catch (Exception e) {
+            authControllerLogger.logError("Failed to register");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to register user");
         }
     }

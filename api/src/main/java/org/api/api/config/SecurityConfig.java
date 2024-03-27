@@ -6,12 +6,18 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder;
+
 
 @Configuration
 @EnableWebSecurity
@@ -20,5 +26,28 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public UserDetailsService userDetailsService(){
+            Collection<UserDetails> users = new ArrayList<>();
+
+            // Encode passwords using BCryptPasswordEncoder
+            PasswordEncoder passwordEncoder = passwordEncoder();
+
+            UserDetails userDetails = User.builder()
+                    .username("user")
+                    .password(passwordEncoder.encode("password"))
+                    .roles("USER")
+                    .build();
+            users.add(userDetails);
+
+            UserDetails adminDetails = User.builder()
+                    .username("admin")
+                    .password(passwordEncoder.encode("admin"))
+                    .roles("ADMIN")
+                    .build();
+            users.add(adminDetails);
+
+            return new InMemoryUserDetailsManager(users);
     }
 }
