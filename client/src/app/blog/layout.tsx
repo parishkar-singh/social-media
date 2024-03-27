@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const AuthLayout = ({children}: { children: React.ReactNode }) => {
+const BlogLayout = ({children}: { children: React.ReactNode }) => {
     return (
         <div className={``}>
             {children}
@@ -9,4 +9,4 @@ const AuthLayout = ({children}: { children: React.ReactNode }) => {
         </div>
     )
 }
-export default AuthLayout
+export default BlogLayout

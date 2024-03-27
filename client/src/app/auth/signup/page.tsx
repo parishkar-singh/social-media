@@ -1,10 +1,10 @@
 import React from "react";
 
-const signup:React.FC=()=>{
+const signUp:React.FC=()=>{
     return (
         <div>
 
         </div>
     )
 }
-export default signup
+export default signUp

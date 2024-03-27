@@ -1,10 +1,10 @@
 import React from "react";
 
-const signin:React.FC=()=>{
+const signIn:React.FC=()=>{
     return (
         <div>
 
         </div>
     )
 }
-export default signin
+export default signIn
