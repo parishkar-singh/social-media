@@ -2,6 +2,7 @@
 import React from "react";
 import ThemeToggle from "@/Components/ThemeToggle";
 import { darkModeContainerConfig} from "@/Utils/DarkMode";
+import NavbarLinks from "@/Components/Item/NavbarItem";
 
 const Logo:React.FC=()=>{
     return <div className={`flex items-center gap-4 font-black `}>
@@ -17,9 +18,13 @@ const Logo:React.FC=()=>{
 
 const Navbar: React.FC = () => {
     return (
-        <div className={`  flex justify-between w-full p-4 `+ darkModeContainerConfig}>
+        <div className={` fixed backdrop flex items-center justify-between w-full p-4 `+ darkModeContainerConfig}>
             <Logo/>
+            <div className={`flex items-center gap-4`}>
+            <NavbarLinks/>
             <ThemeToggle/>
+            </div>
+
         </div>
     )
 }

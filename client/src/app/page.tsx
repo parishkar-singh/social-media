@@ -9,10 +9,10 @@ import Articles from "@/Containers/Articles";
 
 export default function Home() {
     return (
-        <main className="flex flex-col  w-screen h-screen   ">
+        <main className="flex select-none  flex-col  w-screen h-screen   ">
             <Navbar/>
             <Header/>
-            {/*<Trending/>*/}
+            <Trending/>
             <Articles/>
         </main>
     );

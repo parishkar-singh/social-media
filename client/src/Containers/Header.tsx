@@ -3,7 +3,7 @@ import {darkModeContainerConfig} from "@/Utils/DarkMode";
 
 const Header: React.FC = () => {
     return (
-        <div className={' flex flex-col h-[400px] w-full '+ darkModeContainerConfig}>
+        <div className={'mt-4 flex flex-col h-[400px] w-full '+ darkModeContainerConfig}>
             <div className={`py-24 px-12 flex flex-col`}>
                 <span className={`text-6xl font-bold font-playfair dark:text-white`}>Experience Reading</span>
                 <span className={`text-2xl font-playfair tracking-wide dark:text-white`}>Learn, read, think etc</span>

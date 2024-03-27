@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import BlogItem from "@/Components/Item/BlogItem";
+import {darkModeBottomSeperator} from "@/Utils/DarkMode";
 
 interface BlogItemProps {
     title: string;
@@ -49,7 +50,7 @@ function generateTestData(): BlogItemProps[] {
         new Date(2023, 8, 5)
     ];
 
-    const avgReadingTimes = ["5 minutes", "10 minutes", "15 minutes", "20 minutes"];
+    const avgReadingTimes = ["5m", "10m", "15m", "20m"];
 
     const categories = [
         ["Technology", "Programming"],
@@ -85,7 +86,7 @@ const Articles: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div className={`p-10 flex flex-col gap-5 `}>
             {posts.map((post, index) => (
                 <BlogItem
                     key={index}

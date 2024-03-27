@@ -1,9 +1,13 @@
 import React from "react";
+import {TrendingUp} from "lucide-react";
 
 const Trending:React.FC=()=>{
     return(
-        <div>
-
+        <div className={`p-10`}>
+            <div className={`flex`}>
+            <TrendingUp />
+                <span>Hot right now</span>
+            </div>
         </div>
     )
 }
