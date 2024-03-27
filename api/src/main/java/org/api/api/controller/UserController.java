@@ -29,7 +29,7 @@ public class UserController {
         try {
             List<User> users = userService.getUsers();
             userControllerLogger.logSuccess("Users Fetched");
-            return ResponseEntity.status(HttpStatus.CREATED).body(users);
+            return ResponseEntity.ok().body(users);
         } catch (Exception e) {
             userControllerLogger.logError("Error Getting Users");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -78,7 +78,6 @@ public class UserController {
     @PostMapping("/user/role/extendToUser")
     public ResponseEntity<?> addRoleToUser(@RequestBody @Valid @NotNull UserRoleForm form) {
         try {
-//            URI uri=URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/role").toUriString());
             userService.addRoleToUser(form.getUsername(), form.getRoleName());
             userControllerLogger.logSuccess("Role appended to User Successfully");
             return ResponseEntity.ok().build();

@@ -5,6 +5,5 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity {
 }
