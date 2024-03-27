@@ -6,7 +6,7 @@ const Trending:React.FC=()=>{
         <div className={`p-10`}>
             <div className={`flex`}>
             <TrendingUp />
-                <span>Hot right now</span>
+                <span className={`font-poppins`}>Hot right now</span>
             </div>
         </div>
     )

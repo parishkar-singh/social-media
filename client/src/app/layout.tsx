@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${merri.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter  h-screen w-screen bg-white dark:bg-black transition duration-200`}>{children}</body>
+      <body className={` ${merri.variable} ${poppins.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter  h-screen w-screen bg-white dark:bg-black transition duration-200`}>{children}</body>
     </html>
   );
 }
