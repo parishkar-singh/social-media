@@ -14,7 +14,6 @@ const Trending: React.FC = () => {
                 if (typeof window !== 'undefined') {
                     const generatedData = await generateTrendingBlogTestData();
                     setPosts(generatedData);
-                    // console.log(generatedData); // Log the generated data to verify
                 }
             } catch (error) {
                 console.error("Error fetching trending data:", error);
@@ -22,7 +21,7 @@ const Trending: React.FC = () => {
         };
 
         fetchTrendingData();
-    }, []); // Empty dependency array to run effect only once
+    }, []);
 
     return (
         <div className={`p-10 flex flex-col gap-5 `}>

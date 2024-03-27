@@ -1,5 +1,4 @@
-import Image from "next/image";
-import ThemeToggle from "@/Components/ThemeToggle";
+// Home.tsx
 import React from "react";
 import Navbar from "@/Components/UI/Navbar";
 import Header from "@/Containers/Header";
@@ -8,11 +7,13 @@ import Articles from "@/Containers/Articles";
 
 export default function Home() {
     return (
-        <main className="flex select-none  flex-col  w-screen h-screen   ">
-            <Navbar/>
-            <Header/>
-            <Trending/>
-            <Articles/>
-        </main>
+        <div className="max-w-screen max-h-screen">
+            <Navbar />
+            <main className=" mt-[65px] ">
+                <Header />
+                <Trending />
+                <Articles />
+            </main>
+        </div>
     );
 }
