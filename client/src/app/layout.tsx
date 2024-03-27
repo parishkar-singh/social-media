@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import {Inter, Poppins, Ubuntu, Playfair_Display, Merriweather, Merriweather_Sans} from "next/font/google";
 import "./globals.css";
 import React from "react";
+import {Provider} from "react-redux";
+import {store} from "@/Redux/store";
 
 const inter = Inter({subsets: ['latin'], variable: '--font-inter'});
 const poppins = Poppins({weight: ["400", "500"], subsets: ['latin'], variable: '--font-poppins'});
@@ -20,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${merri.variable} ${poppins.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter  h-screen w-screen bg-white dark:bg-black transition duration-200`}>{children}</body>
+      <body className={` ${merri.variable} ${poppins.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter  h-screen w-screen bg-white dark:bg-black transition duration-200`}>
+      <Provider store={store}>
+      {children}
+      </Provider>
+      </body>
     </html>
   );
 }

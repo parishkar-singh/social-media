@@ -1,4 +1,7 @@
-
+export interface User {
+    email:string
+    password:string
+}
 export interface BlogItemProps {
     owner: string;
     title: string;
