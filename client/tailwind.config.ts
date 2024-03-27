@@ -12,6 +12,7 @@ const config: Config = {
         ubuntu: ['var(--font-ubuntu)'],
         poppins: ['var(--font-poppins)'],
         playfair: ['var(--font-playfair)'],
+        merri: ['var(--font-merri)'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
