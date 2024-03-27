@@ -24,6 +24,18 @@ public class UserController {
     @Autowired
     private  UserService userService;
     org.api.api.utils.Logger userControllerLogger = new org.api.api.utils.Logger("User Controller");
+    
+    @PostMapping("/api/user")
+    public User createUser(@RequestBody @Valid @NotNull User user) {
+        try {
+            User createdUser = userService.createUser(user);
+            userControllerLogger.logSuccess("User Created: "+ createdUser);
+            return createdUser;
+        } catch (Exception e) {
+            userControllerLogger.logError("Error creating User");
+            return null;
+        }
+    }
 
     @GetMapping("/api/users")
     public List<User> getUsers() {
@@ -37,19 +49,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user")
-    public User createUser(@RequestBody @Valid @NotNull User user) {
-        try {
-            User createdUser = userService.createUser(user);
-            userControllerLogger.logSuccess("User Created: "+ createdUser);
-            return createdUser;
-        } catch (Exception e) {
-            userControllerLogger.logError("Error creating User");
-            return null;
-        }
-    }
 
-    @PutMapping("/user")
+    @PutMapping("/api/user")
     public User updateUser(@RequestBody @Valid @NotNull User user) {
         try {
             String username = user.getUsername();
@@ -61,4 +62,16 @@ public class UserController {
             return null;
         }
     }
+
+    @DeleteMapping("/api/user/{username}")
+    public void deleteUser(@PathVariable("username") String username){
+        try {
+            userService.deleteUser(username);
+            userControllerLogger.logSuccess("Deleted User " + username);
+        } catch (Exception e) {
+            userControllerLogger.logError("Error Deleting User");
+        }
+    }
+
+    
 }
