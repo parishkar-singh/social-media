@@ -47,9 +47,9 @@ export function generateBlogTestData(): BlogItemProps[] {
         ["Technology", "Programming"],
         ["Travel", "Food", "Adventure"],
         ["Health", "Fitness", "Wellness"],
-        ["Education", "Learning", "Self-Improvement"],
+        ["Education", "Learning", "Improvement"],
         ["Cooking", "Recipes", "Food Culture"],
-        ["React", "JavaScript", "Frontend Development"]
+        ["React", "JavaScript", "Frontend"]
     ];
 
     const blogs: BlogItemProps[] = [];
@@ -103,9 +103,9 @@ export function generateTrendingBlogTestData(): TrendingBlogItemProps[] {
         ["Technology", "Programming"],
         ["Travel", "Food", "Adventure"],
         ["Health", "Fitness", "Wellness"],
-        ["Education", "Learning", "Self-Improvement"],
+        ["Education", "Learning", "Improvement"],
         ["Cooking", "Recipes", "Food Culture"],
-        ["React", "JavaScript", "Frontend Development"]
+        ["React", "JavaScript", "Frontend "]
     ];
 
     const trendingBlogs: TrendingBlogItemProps[] = [];

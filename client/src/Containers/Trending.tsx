@@ -28,7 +28,7 @@ const Trending: React.FC = () => {
         <div className={`p-10 flex flex-col gap-5 `}>
             <div className={`flex`}>
                 <TrendingUp className={`text-black dark:text-white `}/>
-                <span>&nbsp;Trending </span>
+                <span className={`text-dark dark:text-white`}>&nbsp;Trending </span>
             </div>
             <div className={` grid grid-cols-2  xl:grid-cols-3 `}>
                 {posts.map((post, index) => (

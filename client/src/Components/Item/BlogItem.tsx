@@ -13,22 +13,27 @@ export const TrendingBlogItem: React.FC<TrendingBlogItemProps> = ({
                                                        avgReadingTime,
                                                    }) => {
     return (
-            <div className={`flex items-center justify-between  min-h-24 w-3/4 `}>
-                <div className={`flex flex-col  mb-2`}>
-                    <p className={`cursor-pointer underline italic font-light text-[10px] font-merri dark:text-neutral-400`}>@{owner}</p>
-                    <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-sm`}>{title}</h2>
-                    <div className={`flex gap-2 items-center`}>
-                        <p className={`text-sm dark:text-primary`}>{date.toDateString()}</p>
-                        <p className={` px-2 text-sm bg-teal-500 dark:bg-neutral-500 dark:text-white rounded-3xl`}>{avgReadingTime}</p>
+        <div className={`flex items-center justify-between gap-2  min-h-24 w-3/4 `}>
+            <div className={`h-10 w-10 bg-primary rounded-full overflow-hidden flex items-center justify-center`}>
+                <Image className={`h-10 w-10 object-cover`} src={'/manAllDressedUp.jpg'} alt={"idk"} width={220} height={220}/>
+            </div>
 
-                    </div>
+
+            <div className={`flex flex-col  mb-2`}>
+                <p className={`cursor-pointer underline italic font-light text-[10px] font-merri dark:text-neutral-400`}>@{owner}</p>
+                <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-sm`}>{title}</h2>
+                <div className={`flex gap-2 items-center`}>
+                    <p className={`text-sm dark:text-primary`}>{date.toDateString()}</p>
+                    <p className={` px-2 text-sm bg-teal-500 dark:bg-neutral-500 dark:text-white rounded-3xl`}>{avgReadingTime}</p>
+
                 </div>
-    </div>)
+            </div>
+        </div>)
 }
 export const BlogItem: React.FC<BlogItemProps> = ({
-                                               owner,
-                                               title,
-                                               description,
+                                                      owner,
+                                                      title,
+                                                      description,
                                                date,
                                                avgReadingTime,
                                                categories
