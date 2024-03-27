@@ -22,7 +22,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => { 
     return (
         <Providers>
             <html lang="en">
-            <body className={` ${merri.variable} ${poppins.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter h-screen w-screen bg-white dark:bg-black transition duration-200`}>
+            <body className={` ${merri.variable} ${poppins.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter  bg-white dark:bg-black transition duration-200`}>
             {children}
             </body>
             </html>

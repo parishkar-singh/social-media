@@ -7,10 +7,10 @@ import Articles from "@/Containers/Articles";
 
 export default function Home() {
     return (
-        <div className="max-w-screen max-h-screen">
+        <div className=" max-w-screen max-h-screen">
             <Navbar />
             <main className=" mt-[65px] ">
-                <Header />
+                <Header/>
                 <Trending />
                 <Articles />
             </main>

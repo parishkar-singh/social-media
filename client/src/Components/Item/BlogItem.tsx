@@ -14,12 +14,10 @@ export const TrendingBlogItem: React.FC<TrendingBlogItemProps> = ({
                                                    }) => {
     return (
         <div className={`flex items-center justify-between gap-2  min-h-24 w-3/4 `}>
-            <div className={`h-10 w-10 bg-primary rounded-full overflow-hidden flex items-center justify-center`}>
-                <Image className={`h-10 w-10 object-cover`} src={'/manAllDressedUp.jpg'} alt={"idk"} width={220} height={220}/>
+            <div className={`h-10 w-10 bg-primary rounded-full overflow-hidden `}>
+                <Image className={`h-10 w-10 object-contain`} src={'/manAllDressedUp.jpg'} alt={"idk"} width={220} height={220}/>
             </div>
-
-
-            <div className={`flex flex-col  mb-2`}>
+            <div className={`flex flex-col`}>
                 <p className={`cursor-pointer underline italic font-light text-[10px] font-merri dark:text-neutral-400`}>@{owner}</p>
                 <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-sm`}>{title}</h2>
                 <div className={`flex gap-2 items-center`}>
