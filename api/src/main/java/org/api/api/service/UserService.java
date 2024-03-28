@@ -11,7 +11,7 @@ import org.api.api.repository.RoleRepository;
 import org.api.api.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,8 +19,8 @@ import java.util.List;
 @Slf4j
 public class UserService implements IUserService {
     org.api.api.utils.Logger UserServiceLogger = new org.api.api.utils.Logger("User Service");
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private  UserRepository userRepository;
+    private  RoleRepository roleRepository;
 
     @Override
     public User createUser(@Valid @NotNull User user) {
@@ -102,4 +102,18 @@ public class UserService implements IUserService {
             throw e;
         }
     }
+    public User getUsersByEmail(String email){
+    	return userRepository.findByEmail(email);
+    }
+
+
+	public List<String> getAllFollowing(String userId) {
+		// TODO Auto-generated method stub
+		ArrayList<String> userFollowers=new ArrayList<String>();
+		userFollowers.add("3");
+		userFollowers.add("2");
+		return userFollowers;
+	}
+
+
 }
