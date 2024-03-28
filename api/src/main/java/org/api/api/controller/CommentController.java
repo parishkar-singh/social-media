@@ -46,7 +46,7 @@ public class CommentController {
     public List<Comment> showComments(@RequestBody @Valid @NotNull ArrayList<String> commentIds) {
         try {
         	
-            return commentService.showComments(commentIds);
+            return commentService.getComments(commentIds);
         } catch (Exception e) {
             throw e;
         }

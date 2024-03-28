@@ -69,7 +69,7 @@ public class BlogController {
     @GetMapping("/{blogId}/comments")
     public List<Comment> getComments(@PathVariable String blogId) {
     	List<String>commentIds=blogService.getCommentIds(blogId);
-        return commentService.getComments(commentIds);
+        return commentService.getComments((ArrayList<String>) commentIds);
     }    
     @GetMapping("/{blogId}/likes")
     public List<UserPair> getLikes(@PathVariable String blogId) {

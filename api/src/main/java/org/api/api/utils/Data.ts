@@ -1,36 +1,39 @@
-const users: Array<{ name: string, username: string, email: string, password: string, roles: string[] }> = [
+
+interface User{
+    name:string
+    username:string
+    email:string
+    password:string
+}
+
+const users: User[] = [
     {
-        "name": "Alice Smith",
-        "username": "alice",
-        "email": "alice@example.com",
-        "password": "StrongPassword123",
-        "roles": ["USER"]
+        "name": "Parishkar Singh",
+        "username": "Parishkar",
+        "email": "parishkar.esko@gmail",
+        "password": "StrongPassword123"
     },
     {
-        "name": "Bob Johnson",
-        "username": "bob",
-        "email": "bob@example.com",
-        "password": "AnotherPassword123",
-        "roles": ["USER"]
+        "name": "Sirisha",
+        "username": "Sirisha",
+        "email": "sirisha@esko.com",
+        "password": "StrongPassword123"
     },
     {
-        "name": "Charlie Brown",
-        "username": "charlie",
+        "name": "adhithya",
+        "username": "adhithya",
         "email": "charlie@example.com",
-        "password": "YetAnotherPassword123",
-        "roles": ["USER"]
+        "password": "StrongPassword123"
     },
     {
-        "name": "David Lee",
-        "username": "david",
+        "name": "Chinmay",
+        "username": "Chinmay",
         "email": "david@example.com",
-        "password": "Password123",
-        "roles": ["USER"]
+        "password": "StrongPassword123"
     }
 ];
 
-// Function to make a POST request to the API
-async function registerUser(user: { name: string, username: string, email: string, password: string, roles: string[] }) {
+async function registerUser(user: User) {
     try {
         const response = await fetch('http://localhost:8080/auth/register', {
             method: 'POST',
@@ -51,7 +54,6 @@ async function registerUser(user: { name: string, username: string, email: strin
     }
 }
 
-// Iterate over the array of users and register each one
 users.forEach(user => {
     registerUser(user);
 });

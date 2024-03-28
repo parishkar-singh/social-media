@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public ArrayList<Comment> showComments(ArrayList<String> commentIds) {
+	public ArrayList<Comment>getComments(ArrayList<String> commentIds) {
 		
 		ArrayList<Comment> commentSet =new ArrayList<>();
 		
