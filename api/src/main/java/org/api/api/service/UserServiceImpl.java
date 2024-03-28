@@ -96,8 +96,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(@Valid @NotNull String userId){
         try {
-            if(getUserById(userId) != null)
+            if(getUserById(userId) != null){
             userRepository.deleteById(userId);
+            }
         } catch (Exception e) {
             UserServiceLogger.logError("User not Deleted: "+e.getMessage());
             throw e;

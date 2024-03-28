@@ -9,8 +9,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.management.relation.Role;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Data // getters, setters, toString, equals, and hashCode methods.
 @NoArgsConstructor
@@ -45,8 +47,6 @@ public class User {
     private ArrayList<String> followers =new ArrayList<>();
     private ArrayList<String> following =new ArrayList<>();
     private ArrayList<String> blogIds = new ArrayList<>();
-    @NotEmpty(message = "At least one role is required")
-    private Collection<Role> roles=new ArrayList<>();
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate

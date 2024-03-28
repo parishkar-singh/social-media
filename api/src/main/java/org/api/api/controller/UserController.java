@@ -12,13 +12,7 @@ import org.api.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -36,7 +30,7 @@ public class UserController {
     @Autowired
     private BlogService blogService; 
     
-    @PostMapping("/api/user")
+    @PostMapping("/user")
     public void createUser(@RequestBody @Valid @NotNull User user) {
         try {
             User createdUser = userService.createUser(user);
@@ -48,7 +42,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/api/users")
+    @GetMapping("/users")
     public List<User> getUsers() {
         try {
             List<User> users = userService.getUsers();
@@ -61,7 +55,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/api/user/{userId}")
+    @GetMapping("/user/{userId}")
     public User getUser(@PathVariable("userId") String userId) {
         try {
             User user = userService.getUserById(userId);
@@ -75,7 +69,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/api/user/{userId}")
+    @PutMapping("/user/{userId}")
     public void updateUser(@RequestBody @Valid @NotNull User user, @PathVariable("userId") String userId) {
         try {
             User updatedUser = userService.updateUser(userId, user);
@@ -87,7 +81,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/api/user/{userId}")
+    @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable("userId") String userId){
         try {
             userService.deleteUser(userId);
@@ -98,7 +92,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/api/user/blog/{userId}")
+    @PostMapping("/user/blog/{userId}")
     public void addBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
         try {
             String blogId = blogService.addNewBlog(userId, blog);
@@ -110,7 +104,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/api/user/blog/{userId}/{blogId}")
+    @GetMapping("/user/blog/{userId}/{blogId}")
     public Blog getBlog(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId){
         try {
             Blog temp = blogService.getBlog(userId, blogId);
@@ -123,7 +117,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/api/user/blog/{userId}")
+    @GetMapping("/user/blog/{userId}")
     public List<Blog> getAllBlogs(@PathVariable("userId") String userId){
         try {
             List<Blog> temp = blogService.getAllBlogs(userId);
@@ -135,7 +129,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/api/user/blog/{userId}")
+    @PutMapping("/user/blog/{userId}")
     public void editBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
         try {
             Blog temp = blogService.editBlog(userId, blog);
@@ -147,7 +141,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/api/user/blog/{userId}/{blogId}")
+    @DeleteMapping("/user/blog/{userId}/{blogId}")
     public void deleteBlog(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId){
         try {
             blogService.deleteBlog(userId, blogId); // is this needed???
@@ -160,7 +154,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/api/user/{userId_1}/{userId_2}")
+    @PostMapping("/user/{userId_1}/{userId_2}")
     public void addFollower(@PathVariable("userId_1") String follower, @PathVariable("userId_2") String followee){
         try {
             userService.addFollower(follower, followee);
@@ -172,7 +166,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/api/user/{userId_1}/{userId_2}")
+    @PutMapping("/user/{userId_1}/{userId_2}")
     public void removeFollower(@PathVariable("userId_1") String follower, @PathVariable("userId_2") String followee){
         try {
             userService.removeFollower(follower, followee);
