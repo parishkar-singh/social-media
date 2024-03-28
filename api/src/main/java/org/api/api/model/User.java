@@ -4,16 +4,20 @@ import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Data // getters, setters, toString, equals, and hashCode methods.
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Document
 
 public class User {
@@ -43,4 +47,10 @@ public class User {
     /////////////////////////////////////////////////////////////////
     @NotEmpty(message = "At least one role is required")
     private Collection<Role> roles=new ArrayList<>();
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
 }
