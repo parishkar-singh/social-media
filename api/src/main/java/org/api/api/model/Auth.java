@@ -16,9 +16,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Auth {
     @Id
     private String id;
-    @Indexed
-    private String username;
-    private String password;
-    private boolean active;
 
+    @Indexed(unique = true)
+    private String username;
+
+    private boolean active;
+    private String password;
+    private String accessToken;
+    private long accessExpiration;
+
+    private String refreshToken;
+    private long refreshExpiration;
+
+    // Other fields and methods as needed
 }
