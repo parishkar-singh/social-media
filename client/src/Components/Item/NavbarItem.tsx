@@ -7,7 +7,7 @@ const NavbarLinks:React.FC=()=>{
             <span className={`cursor-pointer`}>Explore</span>
             <span className={`cursor-pointer`}>Write</span>
             <span className={`cursor-pointer`}>Sign in</span>
-            <span className={addTransition+` cursor-pointer bg-white dark:bg-primary text-black font-poppins font-bold rounded-3xl py-1 px-2`}>Get Started</span>
+            <span className={addTransition+` cursor-pointer bg-white dark:bg-neutral-900 text-black dark:text-white font-poppins font-semibold rounded-3xl py-1 px-2`}>Get Started</span>
         </div>
     )
 }
