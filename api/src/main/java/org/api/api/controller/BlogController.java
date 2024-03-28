@@ -1,4 +1,5 @@
 package org.api.api.controller;
+
 import org.api.api.model.Blog;
 import org.api.api.model.Comment;
 import org.api.api.service.BlogService;
@@ -27,35 +28,34 @@ public class BlogController {
     private CommentService commentService;
     @Autowired
     private UserService userService;
-    
-    
+
+    //WILL BE CALLED BY COMMENT CONTROLLER
 
 
     @PostMapping("/{blogId}/comment")
-    public ResponseEntity<String> addComment( @PathVariable String blogId, @RequestBody String commentId) {
-
+    public ResponseEntity<String> addComment(@PathVariable String blogId, @RequestBody String commentId) {
         blogService.addComment(blogId, commentId);
-
         return new ResponseEntity<>("Comment added successfully", HttpStatus.CREATED);
-
+    }
 
     @PostMapping("/likes")
     public ResponseEntity<String> addLike(@RequestBody Like like) {
         blogService.addLike(like);
         return new ResponseEntity<>("Like added successfully", HttpStatus.OK);
     }
-    
+
 
     @GetMapping("/{blogId}/comments")
     public List<Comment> getComments(@PathVariable String blogId) {
-    	List<String>commentIds=blogService.getCommentIds(blogId);
+        List<String> commentIds = blogService.getCommentIds(blogId);
         return commentService.getComments((ArrayList<String>) commentIds);
-    }    
+    }
+
     @GetMapping("/{blogId}/likes")
     public List<UserPair> getLikes(@PathVariable String blogId) {
-    	return blogService.getLikes(blogId);
-    }    
-    
+        return blogService.getLikes(blogId);
+    }
+
     @GetMapping("/personalized")
     public ResponseEntity<List<Blog>> getPersonalizedBlogs(@RequestBody List<String> categories) {
         List<Blog> personalizedBlogs = blogService.getPersonalizedBlogs(new ArrayList<>(categories));
@@ -64,54 +64,43 @@ public class BlogController {
 
     @GetMapping("/feed/{userId}")
     public ResponseEntity<List<Blog>> getFeedBlogs(@PathVariable String userId) {
-    	List<String> userFollowingIds=userService.getAllFollowing(userId);
+        List<String> userFollowingIds = userService.getAllFollowing(userId);
         List<Blog> feedBlogs = blogService.getFeedBlogs(userFollowingIds);
         return new ResponseEntity<>(feedBlogs, HttpStatus.OK);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //WILL BE CALLED BY COMMENT CONTROLLER
-    @PostMapping("/{blogId}/comment")
-    public ResponseEntity<String> addComment( @PathVariable String blogId, @RequestBody String commentId) {
-        blogService.addComment(blogId, commentId);
-        return new ResponseEntity<>("Comment added successfully", HttpStatus.CREATED);
-    }
- 
-    
-    
+
+
+
+
     //WILL BE CALLED BY USER CONTROLLER
     @PostMapping("/{userId}")
-    public ResponseEntity<String> addNewBlog(@PathVariable("userId") String userId, @RequestBody @Valid @NotNull Blog blog) {
-        String blogId=blogService.addNewBlog(userId, blog);
+    public ResponseEntity<String> addNewBlog(@PathVariable("userId") String
+                                                     userId, @RequestBody @Valid @NotNull Blog blog) {
+        String blogId = blogService.addNewBlog(userId, blog);
         System.out.println(blogId);
         return new ResponseEntity<>("Blog created successfully", HttpStatus.CREATED);
     }
 
     @PutMapping("/{blogId}")
     public ResponseEntity<String> editBlog(@PathVariable String blogId, @RequestBody Blog updatedBlog) {
-        blogService.editBlog(blogId, updatedBlog);	
+        blogService.editBlog(blogId, updatedBlog);
         return new ResponseEntity<>("Blog created successfully", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{userId}/{blogId}")
     public ResponseEntity<String> deleteBlog(@PathVariable String userId, @PathVariable String blogId) {
-        blogService.deleteBlog(userId,blogId);
+        blogService.deleteBlog(userId, blogId);
         return new ResponseEntity<>("Blog deleted successfully", HttpStatus.OK);
     }
+
     @GetMapping("/{blogId}/{userId}/getBlog")
     public Blog getBlog(@PathVariable String blogId, @PathVariable String userId) {
         return blogService.getBlog(blogId, userId);
     }
+
     @GetMapping("/{userId}/getBlogs")
     public List<Blog> getBlogsByUser(@PathVariable String userId) {
-        return blogService.getAllBlogs( userId);
+        return blogService.getAllBlogs(userId);
     }
-
 }
+
