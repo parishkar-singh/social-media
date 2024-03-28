@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> getAllFollowers(@Valid @NotNull String userId){
         try {
-            return (List<String>) getUserById(userId).getBlogIds(); 
+            return getUserById(userId).getFollowers(); 
         } catch (Exception e) {
             UserServiceLogger.logError("Error while getting follower: "+e.getMessage());
             throw e;
@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> getAllFollowing(@Valid @NotNull String userId){
         try {
-            return (List<String>) getUserById(userId).getBlogIds();
+            return getUserById(userId).getFollowing();
         } catch (Exception e) {
             UserServiceLogger.logError("Error while getting following: "+e.getMessage());
             throw e;
