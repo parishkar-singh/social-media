@@ -4,6 +4,7 @@ import { Inter, Poppins, Ubuntu, Playfair_Display, Merriweather, Merriweather_Sa
 import "./globals.css";
 import React from "react";
 import { Providers } from "@/Redux/Providers";
+import Navbar from "@/Components/UI/Navbar";
 interface ProvidersProps {
     children: React.ReactNode;
 }
@@ -23,6 +24,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => { 
         <Providers>
             <html lang="en">
             <body className={` ${merri.variable} ${poppins.variable} ${ubuntu.variable} ${inter.variable} ${playfair.variable} font-inter  bg-white dark:bg-black transition duration-200`}>
+            <Navbar />
             {children}
             </body>
             </html>

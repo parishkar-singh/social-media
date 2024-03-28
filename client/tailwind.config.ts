@@ -23,7 +23,7 @@ const config: Config = {
         // primary: '#FFC017',
         // primary: '#FFC017',
         third: '#FFC017',
-        secondary: '#1DA1F2',
+        secondary: '#0D9488',
         primary:'#7C3AED'
       }
     },

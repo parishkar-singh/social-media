@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
+import Navbar from "@/Components/UI/Navbar";
 
 const ExploreLayout = ({children}: { children: React.ReactNode }) => {
     return (
-        <div className={``}>
+        <div className={''}>
             {children}
 
         </div>
