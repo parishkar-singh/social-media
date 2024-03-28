@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.api.api.model.Blog;
+import org.api.api.utils.Like;
 import org.api.api.utils.UserPair;
 
 public interface BlogService {
@@ -14,10 +15,10 @@ public interface BlogService {
 	Blog editBlog(String blogId, Blog updatedBlog);
 	void deleteBlog(String userId, String blogId);
 	void addComment( String blogId, String commentId);// suggest usercontroller to call comment service as well
-	void addLike(String userId,String username, String blogId);// suggest usercontroller to call comment service as well
+	void addLike(Like like);// suggest usercontroller to call comment service as well
 	Blog getBlog(String userId, String blogId);
 	List<Blog> getAllBlogs(String userId);
-	
+	void deleteComment(String commentId, String blogId);
 	
 	//For BlogController
 	List<Blog> getPersonalizedBlogs(ArrayList<String> categories);

@@ -34,13 +34,15 @@ public class CommentServiceImpl implements CommentService {
 		return cd.getcommentId();
 	}
 	@Override
-	public void deleteComment(String commentId) {
+	public String deleteComment(String commentId) {
 		
 		Optional<Comment> delComment =commentRepo.findById(commentId);
 		if(delComment.isPresent())
 		{
 		commentRepo.delete(delComment.get());
+		return delComment.get().getBlogId();
 		}
+		return null;
 	}
 	
 	@Override
@@ -91,6 +93,8 @@ public class CommentServiceImpl implements CommentService {
 		Optional<Comment> comments =commentRepo.findById(reply.getCommentId());
 		if(comments.isPresent()) {
 			comments.get().addReplyIds(savedReply.getReplyId());
+			commentRepo.save(comments.get());
+
 		}
 	}
 	
