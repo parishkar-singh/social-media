@@ -9,7 +9,7 @@ public interface CommentService {
 	
 	
 	public String addComment(Comment c);
-	public void deleteComment(String commentId);
+	public String deleteComment(String commentId);
 	
 	public ArrayList<Comment> getComments(ArrayList<String> commentIds);
 	//list of commentIDs

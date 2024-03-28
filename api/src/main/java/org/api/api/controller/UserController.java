@@ -106,12 +106,13 @@ public class UserController {
             throw e;
         }
     }
-
+    
     @GetMapping("/user/blog/{userId}/{blogId}")
     public Blog getBlog(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId){
         try {
             Blog temp = blogService.getBlog(userId, blogId);
             userControllerLogger.logSuccess("Got User's Blog ");
+            System.out.println(temp.getTitle());
             return temp;
 
         } catch (Exception e) {

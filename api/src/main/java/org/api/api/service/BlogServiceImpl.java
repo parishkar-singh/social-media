@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.api.api.model.Blog;
 import org.api.api.repository.BlogRepository;
+import org.api.api.utils.Like;
 import org.api.api.utils.UserPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog editBlog(String blogId, Blog updatedBlog) {
-    		updatedBlog.setBlogId(blogId);
-        	blogRepository.save(updatedBlog);
-
+    public Blog editBlog(String userId, Blog updatedBlog) {
+    	if(updatedBlog.getUserId().equals(userId)) {
+    	blogRepository.save(updatedBlog);
+    	}
         return updatedBlog;
     }
 
@@ -55,10 +56,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void addLike(String userId, String username, String blogId) {
-        Blog existingBlog = blogRepository.findById(blogId).orElse(null);
+    public void addLike(Like like) {
+        Blog existingBlog = blogRepository.findById(like.getBlogId()).orElse(null);
         if (existingBlog != null) {
-            existingBlog.getLikes().add(new UserPair(userId,username));
+            existingBlog.getLikes().add(new UserPair(like.getUserId(),like.getUsername()));
             blogRepository.save(existingBlog);
         }
     }
@@ -95,7 +96,7 @@ public class BlogServiceImpl implements BlogService {
 		}
 
 	@Override
-	public Blog getBlog(String blogId, String userId) {
+	public Blog getBlog(String userId, String blogId) {
 		Blog blog = blogRepository.findById(blogId).orElse(null);
         if (blog != null) {
             if(blog.getUserId().equals(userId)) {
@@ -118,5 +119,15 @@ public class BlogServiceImpl implements BlogService {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public void deleteComment(String commentId, String blogId) {
+		Blog blog=blogRepository.findById(blogId).orElse(null);
+		if(blog!=null) {
+			blog.getCommentIds().remove(commentId);
+			blog.setCommentIds(blog.getCommentIds());
+			blogRepository.save(blog);
+		}
 	}
 }
