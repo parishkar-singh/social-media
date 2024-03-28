@@ -1,0 +1,14 @@
+[   
+    {
+        "userId": "66055acd115e782b4f0547c4",
+        "title": "My First Blog Post",
+        "description": "This is my very first blog post!",
+        "categories": ["Technology", "Programming"],
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum nulla nec velit convallis ullamcorper. Ut sed magna sit amet odio gravida convallis. Mauris in metus quis purus dictum feugiat.",
+        "likes": [{"username":"Sirisha",
+        "userId":"66055acd115e782b4f0547c2"}],
+        "commentIds": [],
+        "visibility": "public"
+    },
+    
+]

@@ -96,7 +96,10 @@ public class UserController {
     public void addBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
         try {
             String blogId = blogService.addNewBlog(userId, blog);
-            userService.getUserById(userId).getBlogIds().add(blogId);
+            User temp = userService.getUserById(userId);
+            temp.getBlogIds().add(blogId);
+            temp.setBlogIds(temp.getBlogIds());
+            userService.updateUser(userId, temp);
             userControllerLogger.logSuccess("Added Blog");
         } catch (Exception e) {
             userControllerLogger.logError("Error adding blog");

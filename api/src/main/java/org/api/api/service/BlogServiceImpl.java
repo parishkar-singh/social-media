@@ -19,6 +19,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public String addNewBlog(String userId, Blog blog) {
+
         blog.setUserId(userId);
         Blog temp=blogRepository.save(blog);
         return temp.getBlogId();

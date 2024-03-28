@@ -1,9 +1,9 @@
 
-interface User{
-    name:string
-    username:string
-    email:string
-    password:string
+interface User {
+    name: string
+    username: string
+    email: string
+    password: string
 }
 
 const users: User[] = [
@@ -54,6 +54,7 @@ async function registerUser(user: User) {
     }
 }
 
-users.forEach(user => {
-    registerUser(user);
+users.forEach(async user => {
+    await registerUser(user);
 });
+///
