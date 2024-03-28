@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.api.api.model.Blog;
-import org.api.api.model.Comment;
 import org.api.api.repository.BlogRepository;
 import org.api.api.utils.UserPair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void editBlog(String blogId, Blog updatedBlog) {
+    public Blog editBlog(String blogId, Blog updatedBlog) {
     		updatedBlog.setBlogId(blogId);
         	blogRepository.save(updatedBlog);
 
+        return updatedBlog;
     }
 
     @Override
