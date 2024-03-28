@@ -18,9 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class UserService implements IUserService {
+	
     org.api.api.utils.Logger UserServiceLogger = new org.api.api.utils.Logger("User Service");
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private  UserRepository userRepository ;
+    private  RoleRepository roleRepository;
 
     @Override
     public User createUser(@Valid @NotNull User user) {
@@ -45,25 +46,25 @@ public class UserService implements IUserService {
         }
     }
 
-    @Override
-    public User updateUser(String userName, User updatedUser) {
-        try {
-            User existingUser = userRepository.findByUsername(userName);
-            if (existingUser != null) {
-                if (updatedUser.getName() != null) {
-                    existingUser.setName(updatedUser.getName());
-                }
-                if (updatedUser.getEmail() != null) {
-                    existingUser.setEmail(updatedUser.getEmail());
-                }
+   @Override
+   public User updateUser(String userName, User updatedUser) {
+//        try {
+         User existingUser = userRepository.findByUsername(userName);
+//            if (existingUser != null) {
+//                if (updatedUser.getName() != null) {
+//                    existingUser.setName(updatedUser.getName());
+//                }
+//                if (updatedUser.getEmail() != null) {
+//                    existingUser.setEmail(updatedUser.getEmail());
+//                }
                 return userRepository.save(existingUser);
-            } else {
-                throw new RuntimeException("User not found");
-            }
-        } catch (Exception e) {
-            UserServiceLogger.logError("User or Role not found"+e.getMessage());
-            throw e;
-        }
+//            } else {
+//                throw new RuntimeException("User not found");
+//            }
+//        } catch (Exception e) {
+//            UserServiceLogger.logError("User or Role not found"+e.getMessage());
+//            throw e;
+//        }
     }
 
     @Override
@@ -72,7 +73,7 @@ public class UserService implements IUserService {
             User user = userRepository.findByUsername(userName);
             Role role = roleRepository.findByName(roleName);
             if (user != null && role != null) {
-                user.getRoles().add(role);
+                //user.getRoles().add(role);
                 userRepository.save(user);
                 UserServiceLogger.logDatabase("Role " + roleName + " added to User " + userName);
             } else {

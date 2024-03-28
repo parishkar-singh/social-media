@@ -43,4 +43,9 @@ public class User {
     /////////////////////////////////////////////////////////////////
     @NotEmpty(message = "At least one role is required")
     private Collection<Role> roles=new ArrayList<>();
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return username;
+	}
 }

@@ -8,6 +8,7 @@ import org.api.api.forms.UserRoleForm;
 import org.api.api.model.Role;
 import org.api.api.model.User;
 import org.api.api.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class UserController {
-
-    private final UserService userService;
+	
+	@Autowired
+    private UserService userService;
     org.api.api.utils.Logger userControllerLogger = new org.api.api.utils.Logger("User Controller");
 
     @GetMapping("/users")
