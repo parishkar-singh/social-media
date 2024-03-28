@@ -29,6 +29,7 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService; 
+    @Autowired
     private BlogService blogService;
     
     @PostMapping("/api/comment")
@@ -36,7 +37,7 @@ public class CommentController {
         try {
         	String createdCommentId =commentService.addComment(comment);
         	
-        	//blogService.addComment(comment.getBlogId(),createdCommentId);
+        	blogService.addComment(comment.getBlogId(),createdCommentId);
         } catch (Exception e) {
             throw e;
         }
@@ -55,7 +56,8 @@ public class CommentController {
     @DeleteMapping("/api/comment/{commentId}")
     public void deleteComment(@PathVariable("commentId") String commentId){
         try {
-        	commentService.deleteComment(commentId);
+        	String blogId=commentService.deleteComment(commentId);
+        	blogService.deleteComment(commentId,blogId);
         } catch (Exception e) {
             throw e;
         }
