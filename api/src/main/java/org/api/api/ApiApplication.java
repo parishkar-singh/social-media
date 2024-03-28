@@ -25,15 +25,15 @@ public class ApiApplication {
 //          userService.addRoleToUser("parishkar","ROLE_ADMIN");
 
 
-            // userService.createUser(new User(null, "Chinmay", "chin", "chinmay.bapat@esko.com", "chinmay@@", null, null, null));
-            // userService.createUser(new User(null, "Pallavi", "pall", "pallavi.bapat@esko.com", "pall@@", null, null, null));
+            // userService.createUser(new User(null, "profile-pic", "Chinmay", "chin", "chinmay.bapat@esko.com", "chinmay@@", null, null, null));
+            // userService.createUser(new User(null,  "profile-pic","Pallavi", "pall", "pallavi.bapat@esko.com", "pall@@", null, null, null));
             
-            // userService.createUser(new User(null, "indranil", "indra", "indra.bapat@esko.com", "indra@@", null, null, null));
-            // userService.createUser(new User(null, "suresh", "sure", "suresh.bapat@esko.com", "suresh@@", null, null, null));
+            // userService.createUser(new User(null, "profile-pic", "indranil", "indra", "indra.bapat@esko.com", "indra@@", null, null, null));
+            // userService.createUser(new User(null, "profile-pic", "suresh", "sure", "suresh.bapat@esko.com", "suresh@@", null, null, null));
             
-            // User temp = userService.getUserById("66040006f864b0007d0fc672");
+            // User temp = userService.getUserById("660534c53725550e6253b47e");
             // temp.setUsername("SURESHBAPAT");
-            // userService.updateUser("66040006f864b0007d0fc672", temp);
+            // userService.updateUser("660534c53725550e6253b47e", temp);
 
 
 
