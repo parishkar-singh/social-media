@@ -1,53 +1,29 @@
 package org.api.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.api.api.model.Blog;
 import org.api.api.model.Comment;
-import org.api.api.model.Reply;
-import org.springframework.stereotype.Service;
+import org.api.api.utils.UserPair;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+public interface BlogService {
 
-@Service
-public class BlogService {
-
-    public String addNewBlog(String userId, Blog blog) {
-        System.out.println("ADDING BLOG");
-        return "this-is-a-blogId";
-    }
-
-    public Blog editBlog(String blogId, Blog updatedBlog) {
-        System.out.println("EDITING BLOG");
-        return null;
-    }
-
-    public void deleteBlog(String userId, String blogId) {
-        System.out.println("DELETE BLOG");
-        return;
-    }
-
-    public Comment addComment(String userId, String blogId, Comment comment){
-        System.out.println("ADDING COMMENT");
-        return null;
-    }
-
-    public void likeBlog(String userId, String blogId){
-        System.out.println("ADDING LIKE");
-        return;
-    }
-
-    public Blog getBlog(String userId, String blogId){
-        return null;
-    }
-    
-    public List<Blog> getAllBlogs(String userId){
-        return null;
-    }
-
-    public Reply addReply(String userId, String blogId, String commentId, @Valid @NotNull Reply reply) {
-        return null;
-    }
-
+	
+	//For UserController
+	String addNewBlog(String userId, Blog blog);
+	void editBlog(String blogId, Blog updatedBlog);
+	void deleteBlog(String userId, String blogId);
+	void addComment( String blogId, String commentId);// suggest usercontroller to call comment service as well
+	void addLike(String userId,String username, String blogId);// suggest usercontroller to call comment service as well
+	Blog getBlog(String userId, String blogId);
+	List<Blog> getAllBlogs(String userId);
+	
+	
+	//For BlogController
+	List<Blog> getPersonalizedBlogs(ArrayList<String> categories);
+	List<Blog> getFeedBlogs(List<String> userIds);
+	List<UserPair> getLikes(String blogId);
+	List<String> getCommentIds(String blogId);
+	
 }
