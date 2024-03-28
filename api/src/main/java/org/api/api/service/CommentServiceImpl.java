@@ -62,9 +62,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		Optional<Comment> comments =commentRepo.findById(commentId);
 		if(comments.isPresent()) {
-			int tempUpvotes = comments.get().getUpvotes();
-			comments.get().setUpvotes(tempUpvotes+1);
+			Comment temp =comments.get();
+			int tempUpvotes = temp.getUpvotes();
+			temp.setUpvotes(tempUpvotes+1);
 			System.out.println(tempUpvotes);
+			commentRepo.save(temp);
 		}
 		
 	}
@@ -73,8 +75,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		Optional<Comment> comments =commentRepo.findById(commentId);
 		if(comments.isPresent()) {
-			int tempUpvotes = comments.get().getUpvotes();
-			comments.get().setUpvotes(tempUpvotes-1);
+			Comment temp =comments.get();
+			int tempUpvotes = temp.getUpvotes();
+			temp.setUpvotes(tempUpvotes-1);
+			System.out.println(tempUpvotes);
+			commentRepo.save(temp);
 		}
 		
 	}
