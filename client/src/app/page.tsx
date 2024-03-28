@@ -9,7 +9,7 @@ export default function Home() {
     return (
         <div className=" max-w-screen max-h-screen">
             <Navbar />
-            <main className=" mt-[65px] ">
+            <main className=" ">
                 <Header/>
                 <Trending />
                 <Articles />

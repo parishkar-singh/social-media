@@ -49,6 +49,7 @@ public class BlogServiceImpl implements BlogService {
         Blog existingBlog = blogRepository.findById(blogId).orElse(null);
         if (existingBlog != null) {
             existingBlog.getCommentIds().add(commentId);
+            existingBlog.setCommentIds(existingBlog.getCommentIds());
             blogRepository.save(existingBlog);
         }
     }

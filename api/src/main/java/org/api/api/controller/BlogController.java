@@ -48,7 +48,9 @@ public class BlogController {
 
     @PostMapping("/{blogId}/comment")
     public ResponseEntity<String> addComment( @PathVariable String blogId, @RequestBody String commentId) {
+
         blogService.addComment(blogId, commentId);
+
         return new ResponseEntity<>("Comment added successfully", HttpStatus.CREATED);
     }
 
