@@ -22,9 +22,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class UserController {
-
-    @Autowired
-    private  UserService userService;
+	
+	@Autowired
+    private UserService userService;
     org.api.api.utils.Logger userControllerLogger = new org.api.api.utils.Logger("User Controller");
 
     @Autowired
