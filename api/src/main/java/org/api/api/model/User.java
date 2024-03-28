@@ -3,17 +3,20 @@ package org.api.api.model;
 import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Data // getters, setters, toString, equals, and hashCode methods.
 @NoArgsConstructor
 @AllArgsConstructor
-@Document //same as @Entity for JPA to use along with MySQL / PostgreSQL, etc.
-
+@Builder
+@Document
 public class User {
 
     @Id
@@ -41,7 +44,13 @@ public class User {
 
     private ArrayList<String> followers =new ArrayList<>();
     private ArrayList<String> following =new ArrayList<>();
-
     private ArrayList<String> blogIds = new ArrayList<>();
+    @NotEmpty(message = "At least one role is required")
+    private Collection<Role> roles=new ArrayList<>();
+    @CreatedDate
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
 
 }

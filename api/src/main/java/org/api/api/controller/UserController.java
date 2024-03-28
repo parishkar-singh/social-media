@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-// @CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -54,6 +54,7 @@ public class UserController {
             List<User> users = userService.getUsers();
             userControllerLogger.logSuccess("User Fetched");
             return users;
+
         } catch (Exception e) {
             userControllerLogger.logError("Error Getting the User");
             throw e;
@@ -115,6 +116,7 @@ public class UserController {
             Blog temp = blogService.getBlog(userId, blogId);
             userControllerLogger.logSuccess("Got User's Blog ");
             return temp;
+
         } catch (Exception e) {
             userControllerLogger.logError("Error getting your blog");
             throw e;
