@@ -7,6 +7,7 @@ import org.api.api.model.Comment;
 import org.api.api.model.Reply;
 import org.api.api.model.User;
 import org.api.api.service.BlogService;
+import org.api.api.service.CommentService;
 import org.api.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,11 +37,11 @@ public class UserController {
     private BlogService blogService; 
     
     @PostMapping("/api/user")
-    public User createUser(@RequestBody @Valid @NotNull User user) {
+    public void createUser(@RequestBody @Valid @NotNull User user) {
         try {
             User createdUser = userService.createUser(user);
             userControllerLogger.logSuccess("User Created: "+ createdUser);
-            return createdUser;
+            //return createdUser;
         } catch (Exception e) {
             userControllerLogger.logError("Error creating User");
             throw e;
@@ -74,11 +75,11 @@ public class UserController {
 
 
     @PutMapping("/api/user/{userId}")
-    public User updateUser(@RequestBody @Valid @NotNull User user, @PathVariable("userId") String userId) {
+    public void updateUser(@RequestBody @Valid @NotNull User user, @PathVariable("userId") String userId) {
         try {
             User updatedUser = userService.updateUser(userId, user);
             userControllerLogger.logSuccess("Updated User: " + updatedUser);
-            return updatedUser;
+            // return updatedUser;
         } catch (Exception e) {
             userControllerLogger.logError("Error Updating User");
             throw e;
@@ -121,7 +122,7 @@ public class UserController {
     }
 
     @GetMapping("/api/user/blog/{userId}")
-    public List<Blog> getAllBlog(@PathVariable("userId") String userId){
+    public List<Blog> getAllBlogs(@PathVariable("userId") String userId){
         try {
             List<Blog> temp = blogService.getAllBlogs(userId);
             userControllerLogger.logSuccess("Got User's Blog ");
@@ -133,11 +134,11 @@ public class UserController {
     }
 
     @PutMapping("/api/user/blog/{userId}")
-    public Blog editBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
+    public void editBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
         try {
             Blog temp = blogService.editBlog(userId, blog);
             userControllerLogger.logSuccess("Edited User's Blog ");
-            return temp;
+            // return temp;
         } catch (Exception e) {
             userControllerLogger.logError("Error editting user's blog");
             throw e;
@@ -147,7 +148,8 @@ public class UserController {
     @DeleteMapping("/api/user/blog/{userId}/{blogId}")
     public void deleteBlog(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId){
         try {
-            blogService.deleteBlog(userId, blogId);
+            blogService.deleteBlog(userId, blogId); // is this needed???
+            userService.getUserById(userId).getBlogIds().remove(blogId);
             userControllerLogger.logSuccess("Deleted User's Blog ");
         } catch (Exception e) {
             userControllerLogger.logError("Error deleting your blog");
@@ -155,29 +157,6 @@ public class UserController {
         }
     }
 
-    @PostMapping("/api/user/blog/{userId}/{blogId}")
-    public Comment addComment(@PathVariable("userId") String userId, @PathVariable("blogId") String blogId, @RequestBody @Valid @NotNull Comment comment){
-        try {
-            Comment temp = blogService.addComment(userId, blogId, comment);
-            userControllerLogger.logSuccess("Added User's comment on Blog ");
-            return temp;
-        } catch (Exception e) {
-            userControllerLogger.logError("Error commenting the blog");
-            throw e;
-        }
-    }
-
-    @PostMapping("/api/user/blog/{userId}/{blogId}/{commentId}")
-    public Reply addReply(@RequestBody @Valid @NotNull Reply reply, @PathVariable("userId") String userId, @PathVariable("blogId") String blogId, @PathVariable("commentId") String commentId){
-        try {
-            Reply temp = blogService.addReply(userId, blogId, commentId, reply);
-            userControllerLogger.logSuccess("Added User's reply on comment");
-            return temp;
-        } catch (Exception e) {
-            userControllerLogger.logError("Error adding reply to the blog");
-            throw e;
-        }
-    }
 
     @PostMapping("/api/user/{userId_1}/{userId_2}")
     public void addFollower(@PathVariable("userId_1") String follower, @PathVariable("userId_2") String followee){

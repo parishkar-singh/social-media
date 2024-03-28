@@ -15,7 +15,7 @@ public class BlogService {
 
     public String addNewBlog(String userId, Blog blog) {
         System.out.println("ADDING BLOG");
-        return null;
+        return "this-is-a-blogId";
     }
 
     public Blog editBlog(String blogId, Blog updatedBlog) {

@@ -19,6 +19,7 @@ public class User {
     @Id
     private String userId;
 
+    private String profilePic;
 
     @NotBlank(message = "Name is required")
     private String name;
