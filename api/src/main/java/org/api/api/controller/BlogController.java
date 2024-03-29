@@ -80,6 +80,7 @@ public class BlogController {
     @GetMapping("/feed/trending")
     public ResponseEntity<List<Blog>> getTrendingBlogs(){
         List<Blog> trendingBlogs=blogService.getTrendingBlogs();
+        System.out.println(trendingBlogs.get(0));
         return new ResponseEntity<>(trendingBlogs, HttpStatus.OK);
         
     }    

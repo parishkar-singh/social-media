@@ -19,7 +19,7 @@ public class Blog {
 	private String blogId;
 
 	@NotBlank(message="Owner name is required")
-	private String OwnerName;
+	private String ownerName;
 	
 	@NotBlank(message = "Blog writer id is required")
 	private String uploaderId;

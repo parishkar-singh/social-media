@@ -156,6 +156,7 @@ public class BlogServiceImpl implements BlogService {
         ArrayList<Integer> numberOfLikesList=new ArrayList<>();
         ArrayList<Date> dateOfBlogPostList=new ArrayList<>();
         for(Blog blog:publicBlogs){
+            System.out.println(blog.getOwnerName());
             numberOfLikesList.add(blogService.getLikesOnBlog(blog.getBlogId()).getLikes());
             dateOfBlogPostList.add(blog.getDate());
         }
@@ -179,7 +180,7 @@ public class BlogServiceImpl implements BlogService {
             }
         };
         Collections.sort(publicBlogs, comparator);
-
+        System.out.println(publicBlogs.get(0).getOwnerName());    
         return publicBlogs;
     }
 }
