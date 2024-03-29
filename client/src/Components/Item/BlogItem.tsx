@@ -7,7 +7,7 @@ import {BlogItemProps, TrendingBlogItemProps} from "@/Utils/Types";
 
 
 export const TrendingBlogItem: React.FC<BlogItemProps> = ({
-                                                       owner,
+                                                       ownerName,
                                                        title,
                                                        date,
                                                        avgReadingTime,
@@ -18,7 +18,7 @@ export const TrendingBlogItem: React.FC<BlogItemProps> = ({
                 <Image className={`h-10 w-10 object-cover`} src={'/manAllDressedUp.jpg'} alt={"idk"} width={220} height={220}/>
             </div>
             <div className={`flex flex-col`}>
-                <p className={`cursor-pointer underline italic font-light text-[10px] font-merri dark:text-neutral-400`}>@{owner}</p>
+                <p className={`cursor-pointer underline italic font-light text-[10px] font-merri dark:text-neutral-400`}>@{ownerName}</p>
                 <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-sm`}>{title}</h2>
                 <div className={`flex gap-2 items-center`}>
                     {date&&
@@ -32,7 +32,7 @@ export const TrendingBlogItem: React.FC<BlogItemProps> = ({
         </div>)
 }
 export const BlogItem: React.FC<BlogItemProps> = ({
-                                                      owner,
+                                                      ownerName,
                                                       title,
                                                       description,
                                                date,
@@ -62,7 +62,7 @@ export const BlogItem: React.FC<BlogItemProps> = ({
     return (
         <div className={`flex items-center justify-between  min-h-44 w-full border-b dark:border-b dark:border-b-neutral-800 `}>
             <div className={`flex flex-col gap-2 mb-2`}>
-                <p className={`cursor-pointer underline italic font-light text-sm font-merri dark:text-neutral-400`}>@{owner}</p>
+                <p className={`cursor-pointer underline italic font-light text-sm font-merri dark:text-neutral-400`}>@{ownerName}</p>
                 <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-2xl`}>{title}</h2>
                 <p className={`cursor-pointer font-normal text-neutral-600 dark:text-neutral-400`}>{description}</p>
                 <div className={`flex gap-2 items-center`}>
@@ -84,7 +84,7 @@ export const BlogItem: React.FC<BlogItemProps> = ({
     );
 };
 export const ExploreBlogItem: React.FC<BlogItemProps> = ({
-                                                      owner,
+                                                      ownerName,
                                                       title,
                                                       description,
                                                       date,
@@ -116,7 +116,7 @@ export const ExploreBlogItem: React.FC<BlogItemProps> = ({
             <Image className={`object-cover  h-52 w-full`} src={'/parishkar.jpg'} alt={""} width={200}
                    height={200}/>
             <div className={`p-2 flex flex-col gap-2 mb-2`}>
-                <p className={`cursor-pointer underline italic font-light text-sm font-merri dark:text-neutral-400`}>@{owner}</p>
+                <p className={`cursor-pointer underline italic font-light text-sm font-merri dark:text-neutral-400`}>@{ownerName}</p>
                 <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-2xl`}>{title}</h2>
                 <p className={`cursor-pointer font-normal text-neutral-600 dark:text-neutral-400`}>{description}</p>
                 <div className={`flex gap-2 items-center`}>

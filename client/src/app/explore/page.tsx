@@ -50,7 +50,7 @@ const Explore=()=>{
                 {explorePosts.map((post, index) => (
                     <ExploreBlogItem
                         key={index}
-                        owner={post.owner}
+                        ownerName={post.ownerName}
                         title={post.title}
                         description={post.description}
                         // date={post.date}

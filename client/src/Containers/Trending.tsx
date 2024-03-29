@@ -4,7 +4,7 @@ import {TrendingBlogItem} from "@/Components/Item/BlogItem";
 import {TrendingBlogItemProps} from "@/Utils/Types";
 import {generateTrendingBlogTestData} from "@/Utils/Data";
 import {TrendingUp} from "lucide-react";
-import {getAllPublicBlogs} from "@/Rest/Blog/BlogGET";
+import {getAllPublicBlogs, getAllTrendingBlogs} from "@/Rest/Blog/BlogGET";
 
 const Trending: React.FC = () => {
     const [posts, setPosts] = useState<TrendingBlogItemProps[]>([]);
@@ -13,7 +13,7 @@ const Trending: React.FC = () => {
         const fetchTrendingData = async () => {
             try {
                 if (typeof window !== 'undefined') {
-                    const generatedData = await getAllPublicBlogs();
+                    const generatedData = await getAllTrendingBlogs();
                     setPosts(generatedData);
                 }
             } catch (error) {
@@ -36,7 +36,7 @@ const Trending: React.FC = () => {
                         <span className={`text-2xl text-neutral-200 dark:text-neutral-800 font-bold`}>0{index}</span>
                         <TrendingBlogItem
                             key={index}
-                            owner={post.owner}
+                            ownerName={post.ownerName}
                             title={post.title}
                             // date={post.date}
                             avgReadingTime={post.avgReadingTime}

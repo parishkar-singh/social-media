@@ -3,7 +3,7 @@ export interface User {
     password:string
 }
 export interface BlogItemProps {
-    owner: string;
+    ownerName: string;
     uploaderId:string
     title: string;
     description?: string;
@@ -18,7 +18,7 @@ export interface BlogItemProps {
 }
 export interface TrendingBlogItemProps {
     title: string;
-    owner: string;
+    ownerName: string;
     date: Date;
     avgReadingTime: string;
     categories: string[];
