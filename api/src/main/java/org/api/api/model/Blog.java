@@ -16,7 +16,7 @@ public class Blog {
 private String blogId;
 
 @NotBlank(message="Blog writer id is required")
-private String uploaderId;
+private String userId;
 
 @NotBlank(message="Title is required")
 private String title;
@@ -55,7 +55,7 @@ public Blog(String blogId, @NotBlank(message = "Blog writer id is required") Str
         @NotNull(message = "Visibility level is required") String visibility) {
 super();
 this.blogId = blogId;
-this.uploaderId = userId;
+this.userId = userId;
 this.title = title;
 this.description = description;
 this.date = new Date();
@@ -74,7 +74,7 @@ public Blog(String blogId, String userId, String title, String description,
 		String visibility, String blogPic) {
 	super();
 	this.blogId = blogId;
-	this.uploaderId = userId;
+	this.userId = userId;
 	this.title = title;
 	this.description = description;
 	this.date = new Date();
@@ -91,11 +91,11 @@ public String getBlogId() {
 public void setBlogId(String blogId) {
 	this.blogId = blogId;
 }
-public String getUploaderId() {
-	return uploaderId;
+public String getUserId() {
+	return userId;
 }
-public void setUploaderId(String uploaderId) {
-	this.uploaderId = uploaderId;
+public void setUserId(String userId) {
+	this.userId = userId;
 }
 public String getTitle() {
 	return title;
