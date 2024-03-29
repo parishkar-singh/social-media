@@ -13,7 +13,7 @@ public interface BlogService {
 	
 	//For UserController
 	String addNewBlog(String userId, Blog blog);
-	Blog editBlog(String blogId, Blog updatedBlog);
+	void editBlog(String blogId, Blog updatedBlog);
 	void deleteBlog(String userId, String blogId);
 	void addComment( String blogId, String commentId);// suggest usercontroller to call comment service as well
 	void addLike(Like like);// suggest usercontroller to call comment service as well

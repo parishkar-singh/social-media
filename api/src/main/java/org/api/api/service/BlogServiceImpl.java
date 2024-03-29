@@ -35,11 +35,10 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog editBlog(String userId, Blog updatedBlog) {
+    public void editBlog(String userId, Blog updatedBlog) {
         if (!updatedBlog.getUploaderId().equals(userId)) {
             throw new RuntimeException("You are not authorized to edit this blog");
         }
-        return blogRepository.save(updatedBlog);
     }
 
     @Override
@@ -156,7 +155,6 @@ public class BlogServiceImpl implements BlogService {
         ArrayList<Integer> numberOfLikesList=new ArrayList<>();
         ArrayList<Date> dateOfBlogPostList=new ArrayList<>();
         for(Blog blog:publicBlogs){
-            System.out.println(blog.getOwnerName());
             numberOfLikesList.add(blogService.getLikesOnBlog(blog.getBlogId()).getLikes());
             dateOfBlogPostList.add(blog.getDate());
         }
@@ -180,7 +178,6 @@ public class BlogServiceImpl implements BlogService {
             }
         };
         Collections.sort(publicBlogs, comparator);
-        System.out.println(publicBlogs.get(0).getOwnerName());    
         return publicBlogs;
     }
 }

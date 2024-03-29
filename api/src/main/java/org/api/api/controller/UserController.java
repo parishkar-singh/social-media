@@ -135,7 +135,7 @@ public class UserController {
     @PutMapping("/user/blog/{userId}")
     public void editBlog(@RequestBody @Valid @NotNull Blog blog, @PathVariable("userId") String userId){
         try {
-            Blog temp = blogService.editBlog(userId, blog);
+            blogService.editBlog(userId, blog);
             userControllerLogger.logSuccess("Edited User's Blog ");
             // return temp;
         } catch (Exception e) {
