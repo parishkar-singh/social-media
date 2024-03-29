@@ -4,11 +4,17 @@ export interface User {
 }
 export interface BlogItemProps {
     owner: string;
+    uploaderId:string
     title: string;
     description: string;
-    date: Date;
+    date?: Date;
+    content?:string
     avgReadingTime: string;
     categories: string[];
+    blogPic:string
+    commentIds?:string[];
+    likes:object[]
+    visibility?:string
 }
 export interface TrendingBlogItemProps {
     title: string;

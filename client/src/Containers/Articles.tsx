@@ -15,7 +15,7 @@ const Articles: React.FC = () => {
                 const response =await getAllPublicBlogs();
                 console.log(response)
                 // const response =  generateBlogTestData();
-                // setPosts(response);
+                setPosts(response);
 
             } catch (error) {
                 console.error("Error fetching blog data:", error);
@@ -34,10 +34,10 @@ const Articles: React.FC = () => {
                     owner={post.owner}
                     title={post.title}
                     description={post.description}
-                    date={post.date}
+                    // date={post.date}
                     avgReadingTime={post.avgReadingTime}
                     categories={post.categories}
-                />
+                  blogPic={"/"} likes={[{},{}]} uploaderId={"6606301f69c2c26107a6baaf"}/>
             ))}
         </div>
     );
