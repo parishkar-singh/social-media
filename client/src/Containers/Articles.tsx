@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BlogItem } from "@/Components/Item/BlogItem";
 import { generateBlogTestData } from "@/Utils/Data";
 import { BlogItemProps } from "@/Utils/Types";
+import {getAllPublicBlogs} from "@/Rest/Blog/BlogGET";
 
 
 const Articles: React.FC = () => {
@@ -11,8 +12,10 @@ const Articles: React.FC = () => {
     useEffect(() => {
         const fetchBlogData = async () => {
             try {
-                const response =  generateBlogTestData();
-                setPosts(response);
+                const response =await getAllPublicBlogs();
+                console.log(response)
+                // const response =  generateBlogTestData();
+                // setPosts(response);
 
             } catch (error) {
                 console.error("Error fetching blog data:", error);
