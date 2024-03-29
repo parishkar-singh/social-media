@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.api.api.model.Blog;
 import org.api.api.utils.Like;
+import org.api.api.utils.LikesOnBlog;
 import org.api.api.utils.UserPair;
 
 public interface BlogService {
@@ -23,7 +24,8 @@ public interface BlogService {
 	//For BlogController
 	List<Blog> getPersonalizedBlogs(ArrayList<String> categories);
 	List<Blog> getFeedBlogs(List<String> userIds);
-	List<UserPair> getLikes(String blogId);
+	LikesOnBlog getLikesOnBlog(String blogId);
 	List<String> getCommentIds(String blogId);
 	List<Blog> getAllPublicBlogs();
+	List<Blog> getTrendingBlogs();
 }

@@ -2,6 +2,7 @@ package org.api.api.service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.api.api.model.Comment;
@@ -57,6 +58,27 @@ public class CommentServiceImpl implements CommentService {
 			}
 		 commentSet.sort(Comparator.comparingInt(Comment::getUpvotes));
 		return commentSet;
+	}
+	@Override
+	public HashMap<Comment, ArrayList<Reply>> getCommentAndReply(ArrayList<String> commentIds) {
+		// TODO Auto-generated method stub
+		HashMap<Comment, ArrayList<Reply>> fullComment = new HashMap<>();
+		for(int i=0;i<commentIds.size();i++) {
+			Optional<Comment> comments =commentRepo.findById(commentIds.get(i));
+			if(comments.isPresent())
+			{
+				Comment temp =comments.get();
+				ArrayList<Reply> replies =new ArrayList<>();
+				
+				for(String replyIds:temp.getReplyIDs()) {
+					Reply existingReply =replyRepo.findById(replyIds).orElse(null);
+			        if (existingReply != null)
+			        	replies.add(existingReply);	
+				}	
+				fullComment.put(temp, replies);
+			}
+		}
+		return fullComment;
 	}
 	
 	@Override

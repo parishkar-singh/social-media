@@ -1,12 +1,15 @@
 package org.api.api.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.api.api.model.Blog;
 import org.api.api.repository.BlogRepository;
 import org.api.api.utils.Like;
+import org.api.api.utils.LikesOnBlog;
 import org.api.api.utils.UserPair;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +19,17 @@ public class BlogServiceImpl implements BlogService {
     public BlogServiceImpl(BlogRepository blogRepository) {
         this.blogRepository = blogRepository;
     }
+    
     @Override
     public String addNewBlog(String userId, Blog blog) {
+        System.out.println("blogService called");
         blog.setUploaderId(userId);
+        ArrayList<String> categories=blog.getCategories();
+        ArrayList<String> newCategories=new ArrayList<>();
+        for(String category:categories) {
+        	newCategories.add(category.toLowerCase().trim());
+        }
+        blog.setCategories(newCategories);
         Blog savedBlog = blogRepository.save(blog);
         return savedBlog.getBlogId();
     }
@@ -56,8 +67,8 @@ public class BlogServiceImpl implements BlogService {
     public void addLike(Like like) {
         Blog existingBlog = blogRepository.findById(like.getBlogId())
                 .orElseThrow(() -> new RuntimeException("Blog not found with id: " + like.getBlogId()));
-
-        existingBlog.getLikes().add(new UserPair(like.getUserId(), like.getUsername()));
+        System.out.println("what");
+        existingBlog.getLikes().addLike(new UserPair(like.getUsername(), like.getUserId()));
         blogRepository.save(existingBlog);
     }
 
@@ -77,7 +88,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<UserPair> getLikes(String blogId) {
+    public LikesOnBlog getLikesOnBlog(String blogId) {
         Blog blog = blogRepository.findById(blogId)
                 .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
         return blog.getLikes();
@@ -120,5 +131,55 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> getAllPublicBlogs() {
         return blogRepository.findAll();
+    }
+    // Function to calculate percentile for Dates
+    private static double calculatePercentileForDate(List<Date> list) {
+        int n = list.size();
+        double percentile = 0.5; // 50th percentile
+
+        int index = (int) Math.ceil(percentile * n);
+        return list.get(index - 1).getTime();
+    }
+
+    // Function to calculate percentile for integers
+    private static double calculatePercentileForLikes(List<Integer> list) {
+        int n = list.size();
+        double percentile = 0.5; // 50th percentile
+
+        int index = (int) Math.ceil(percentile * n);
+        return list.get(index - 1);
+    }
+    @Override
+    public List<Blog> getTrendingBlogs() {
+        BlogService blogService=new BlogServiceImpl(blogRepository);
+        List<Blog> publicBlogs=blogService.getAllPublicBlogs();
+        ArrayList<Integer> numberOfLikesList=new ArrayList<>();
+        ArrayList<Date> dateOfBlogPostList=new ArrayList<>();
+        for(Blog blog:publicBlogs){
+            numberOfLikesList.add(blogService.getLikesOnBlog(blog.getBlogId()).getLikes());
+            dateOfBlogPostList.add(blog.getDate());
+        }
+        Collections.sort(dateOfBlogPostList, Date::compareTo);
+        Collections.sort(numberOfLikesList);
+
+        // Calculate percentiles
+        double datePostedPercentile = calculatePercentileForDate(dateOfBlogPostList);
+        double numberOfLikesPercentile = calculatePercentileForLikes(numberOfLikesList);
+        Comparator<Blog> comparator = new Comparator<Blog>() {
+            @Override
+            public int compare(Blog blog1, Blog blog2) {
+                // Calculate distance from the percentiles for each blog
+                double distance1 = Math.abs(blog1.getDate().getTime() - datePostedPercentile) +
+                        Math.abs(blog1.getLikes().getLikes() - numberOfLikesPercentile);
+                double distance2 = Math.abs(blog2.getDate().getTime() - datePostedPercentile) +
+                        Math.abs(blog2.getLikes().getLikes() - numberOfLikesPercentile);
+
+                // Sort based on distance (lower distance is better)
+                return Double.compare(distance1, distance2);
+            }
+        };
+        Collections.sort(publicBlogs, comparator);
+
+        return publicBlogs;
     }
 }

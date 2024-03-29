@@ -2,10 +2,12 @@ package org.api.api.controller;
 
 import org.api.api.model.Blog;
 import org.api.api.model.Comment;
+import org.api.api.model.Reply;
 import org.api.api.service.BlogService;
 import org.api.api.service.CommentService;
 import org.api.api.service.UserService;
 import org.api.api.utils.Like;
+import org.api.api.utils.LikesOnBlog;
 import org.api.api.utils.UserPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -42,7 +45,15 @@ public class BlogController {
         return new ResponseEntity<>("Like added successfully", HttpStatus.OK);
     }
 
-
+    @GetMapping("/{blogId}/comments-and-replies")
+    public HashMap<Comment,ArrayList<Reply>> getCommentsAndReplies(@PathVariable String blogId) {
+        try {
+            //return commentService.getComments(commentIds);
+            return commentService.getCommentAndReply((ArrayList<String>) blogService.getCommentIds(blogId));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     @GetMapping("/{blogId}/comments")
     public List<Comment> getComments(@PathVariable String blogId) {
         List<String> commentIds = blogService.getCommentIds(blogId);
@@ -50,8 +61,8 @@ public class BlogController {
     }
 
     @GetMapping("/{blogId}/likes")
-    public List<UserPair> getLikes(@PathVariable String blogId) {
-        return blogService.getLikes(blogId);
+    public LikesOnBlog getLikes(@PathVariable String blogId) {
+        return blogService.getLikesOnBlog(blogId);
     }
 
     @GetMapping("/personalized")
@@ -66,7 +77,12 @@ public class BlogController {
         List<Blog> feedBlogs = blogService.getFeedBlogs(userFollowingIds);
         return new ResponseEntity<>(feedBlogs, HttpStatus.OK);
     }
-
+    @GetMapping("/feed/trending")
+    public ResponseEntity<List<Blog>> getTrendingBlogs(){
+        List<Blog> trendingBlogs=blogService.getTrendingBlogs();
+        return new ResponseEntity<>(trendingBlogs, HttpStatus.OK);
+        
+    }    
 
 
 
