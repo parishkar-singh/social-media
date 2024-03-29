@@ -10,7 +10,7 @@ const Logo: React.FC = () => {
             <div className={`bg-black dark:bg-white  rounded-full w-10 h-10 transform translate-z-20`}></div>
             <div className={`bg-black dark:bg-white  rounded-full w-10 h-10 skew-x-12 skew-y-12 skew-z-[24deg]`}></div>
             <div className={`bg-black dark:bg-white rounded-full w-10 h-10  skew-x-[50deg]`}></div>
-            {/*<span className={"font-playfair text-black dark:text-white font-black ml-4 text-3xl"}>High</span>*/}
+            <span className={"font-playfair text-black dark:text-white font-black ml-4 text-3xl"}>High</span>
         </div>
     );
 };
