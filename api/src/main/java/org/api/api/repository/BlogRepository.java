@@ -11,9 +11,9 @@ public interface BlogRepository extends MongoRepository<Blog,String>  {
 
 	List<Blog> findByCategoriesIn(ArrayList<String> categories);
 
-	List<Blog> findByUserIdIn(List<String> followedUsers);
+	List<Blog> findByUploaderIdIn(List<String> followedUsers);
 
-	List<Blog> findAllByUserId(String username);
+	List<Blog> findAllByUploaderId(String username);
 	@Query("{'visibility': 'public'}")
 	List<Blog> findAllPublicBlogs();
 
