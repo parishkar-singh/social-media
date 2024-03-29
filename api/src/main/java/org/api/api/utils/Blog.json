@@ -1,0 +1,12 @@
+{
+    "uploaderId": "660639eddefdad00daf33640",
+    "ownerName":"Parishkar Singh",
+    "title": "My First Blog Post",
+    "description": "This is my very first blog post!",
+    "categories": ["Technology", "Programming"],
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum nulla nec velit convallis ullamcorper. Ut sed magna sit amet odio gravida convallis. Mauris in metus quis purus dictum feugiat.",
+    "likes": {},
+    "commentIds": [],
+    "visibility": "public",
+    "avgReadingTime":"2m"
+}
