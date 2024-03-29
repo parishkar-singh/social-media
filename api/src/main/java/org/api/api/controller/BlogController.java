@@ -30,8 +30,6 @@ public class BlogController {
     private UserService userService;
 
     //WILL BE CALLED BY COMMENT CONTROLLER
-
-
     @PostMapping("/{blogId}/comment")
     public ResponseEntity<String> addComment(@PathVariable String blogId, @RequestBody String commentId) {
         blogService.addComment(blogId, commentId);

@@ -24,7 +24,7 @@ const Articles: React.FC = () => {
         }
     }, []);
     return (
-        <div className={`p-10 flex flex-col gap-5 `}>
+        <div className={`p-10 flex w-2/3  flex-col gap-5 `}>
             {posts.map((post, index) => (
                 <BlogItem
                     key={index}

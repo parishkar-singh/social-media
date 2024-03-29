@@ -37,7 +37,7 @@ export const BlogItem: React.FC<BlogItemProps> = ({
                                                categories
                                            }) => {
     return (
-        <div className={`flex items-center justify-between  min-h-44 w-3/4 border-b dark:border-b dark:border-b-neutral-800 `}>
+        <div className={`flex items-center justify-between  min-h-44 w-full border-b dark:border-b dark:border-b-neutral-800 `}>
             <div className={`flex flex-col gap-2 mb-2`}>
                 <p className={`cursor-pointer underline italic font-light text-sm font-merri dark:text-neutral-400`}>@{owner}</p>
                 <h2 className={`cursor-pointer font-black dark:text-white font-poppins tracking-wide text-2xl`}>{title}</h2>
