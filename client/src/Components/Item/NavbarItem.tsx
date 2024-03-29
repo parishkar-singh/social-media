@@ -7,6 +7,8 @@ const NavbarLinks:React.FC=()=>{
     const router = useRouter();
     return (
         <div className={`flex gap-2 text-black font-poppins  dark:text-white select-none items-center`}>
+
+            <a  href={'/'} className={`cursor-pointer`}>Home</a>
             <a  href={'/explore'} className={`cursor-pointer`}>Explore</a>
             <a  href={'/feed'} className={`cursor-pointer`}>Feed</a>
             <a  href={'/auth/post'} className={`cursor-pointer`}>Write</a>

@@ -17,7 +17,7 @@ public interface BlogService {
 	void addComment( String blogId, String commentId);// suggest usercontroller to call comment service as well
 	void addLike(Like like);// suggest usercontroller to call comment service as well
 	Blog getBlog(String userId, String blogId);
-	List<Blog> getAllBlogs(String userId);
+	List<Blog> getAllBlogsByUser(String userId);
 	void deleteComment(String commentId, String blogId);
 	
 	//For BlogController
@@ -25,5 +25,5 @@ public interface BlogService {
 	List<Blog> getFeedBlogs(List<String> userIds);
 	List<UserPair> getLikes(String blogId);
 	List<String> getCommentIds(String blogId);
-	
+	List<Blog> getAllPublicBlogs();
 }

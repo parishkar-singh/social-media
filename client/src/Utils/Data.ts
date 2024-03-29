@@ -41,7 +41,7 @@ export function generateBlogTestData(): BlogItemProps[] {
         new Date(2023, 8, 5)
     ];
 
-    const avgReadingTimes = ["5m", "10m", "15m", "20m"];
+    const avgReadingTimes = ["2m","5m","6m", "10m", "15m", "20m"];
 
     const categories = [
         ["Technology", "Programming"],

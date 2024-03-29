@@ -124,7 +124,7 @@ public class UserController {
     @GetMapping("/user/blog/{userId}")
     public List<Blog> getAllBlogs(@PathVariable("userId") String userId){
         try {
-            List<Blog> temp = blogService.getAllBlogs(userId);
+            List<Blog> temp = blogService.getAllBlogsByUser(userId);
             userControllerLogger.logSuccess("Got User's Blog ");
             return temp;
         } catch (Exception e) {

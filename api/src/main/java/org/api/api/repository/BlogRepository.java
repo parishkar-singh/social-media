@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.api.api.model.Blog;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 public interface BlogRepository extends MongoRepository<Blog,String>  {
 
@@ -13,7 +14,8 @@ public interface BlogRepository extends MongoRepository<Blog,String>  {
 	List<Blog> findByUserIdIn(List<String> followedUsers);
 	
 	List<Blog> findAllByUserId(String username);
-
+	@Query("{'visibility': 'public'}")
+	List<Blog> findAllPublicBlogs();
 
 
 }

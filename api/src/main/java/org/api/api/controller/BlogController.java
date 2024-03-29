@@ -97,8 +97,13 @@ public class BlogController {
     }
 
     @GetMapping("/{userId}/getBlogs")
-    public List<Blog> getBlogsByUser(@PathVariable String userId) {
-        return blogService.getAllBlogs(userId);
+    public ResponseEntity<List<Blog>> getBlogsByUser(@PathVariable String userId) {
+        return ResponseEntity.ok().body(blogService.getAllBlogsByUser(userId));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Blog>> getAllPublicBlogs(){
+        return ResponseEntity.ok().body(blogService.getAllPublicBlogs());
     }
 }
 

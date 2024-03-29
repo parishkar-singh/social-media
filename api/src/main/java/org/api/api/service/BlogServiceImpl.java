@@ -14,120 +14,113 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BlogServiceImpl implements BlogService {
-
-    @Autowired
-    private BlogRepository blogRepository;
-
+    private final BlogRepository blogRepository;
+    public BlogServiceImpl(BlogRepository blogRepository) {
+        this.blogRepository = blogRepository;
+    }
     @Override
     public String addNewBlog(String userId, Blog blog) {
-
         blog.setUserId(userId);
-        Blog temp=blogRepository.save(blog);
-        return temp.getBlogId();
+        Blog savedBlog = blogRepository.save(blog);
+        return savedBlog.getBlogId();
     }
 
     @Override
     public Blog editBlog(String userId, Blog updatedBlog) {
-    	if(updatedBlog.getUserId().equals(userId)) {
-    	blogRepository.save(updatedBlog);
-    	}
-        return updatedBlog;
+        if (!updatedBlog.getUserId().equals(userId)) {
+            throw new RuntimeException("You are not authorized to edit this blog");
+        }
+        return blogRepository.save(updatedBlog);
     }
 
     @Override
     public void deleteBlog(String userId, String blogId) {
-    	
-		Blog blog = blogRepository.findById(blogId).orElse(null);
-        if (blog != null) {
-            if(blog.getUserId().equals(userId)) {
-                blogRepository.deleteById(blogId);
-            }
+        Blog blog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
+
+        if (!blog.getUserId().equals(userId)) {
+            throw new RuntimeException("You are not authorized to delete this blog");
         }
+
+        blogRepository.deleteById(blogId);
     }
 
     @Override
     public void addComment(String blogId, String commentId) {
-        Blog existingBlog = blogRepository.findById(blogId).orElse(null);
-        if (existingBlog != null) {
-            existingBlog.getCommentIds().add(commentId);
-            existingBlog.setCommentIds(existingBlog.getCommentIds());
-            blogRepository.save(existingBlog);
-        }
+        Blog existingBlog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
+
+        existingBlog.getCommentIds().add(commentId);
+        blogRepository.save(existingBlog);
     }
 
     @Override
     public void addLike(Like like) {
-        Blog existingBlog = blogRepository.findById(like.getBlogId()).orElse(null);
-        if (existingBlog != null) {
-            existingBlog.getLikes().add(new UserPair(like.getUserId(),like.getUsername()));
-            blogRepository.save(existingBlog);
-        }
+        Blog existingBlog = blogRepository.findById(like.getBlogId())
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + like.getBlogId()));
+
+        existingBlog.getLikes().add(new UserPair(like.getUserId(), like.getUsername()));
+        blogRepository.save(existingBlog);
     }
 
     @Override
     public List<Blog> getPersonalizedBlogs(ArrayList<String> categories) {
-    	List<Blog>blogs=blogRepository.findByCategoriesIn(categories);
+        List<Blog> blogs = blogRepository.findByCategoriesIn(categories);
         blogs.removeIf(blog -> !"public".equals(blog.getVisibility()));
-
-        Collections.sort(blogs, Comparator.comparing(Blog::getDate).reversed());
-
+        blogs.sort(Comparator.comparing(Blog::getDate).reversed());
         return blogs;
     }
 
     @Override
     public List<Blog> getFeedBlogs(List<String> userIds) {
-    	List<Blog> blogs=blogRepository.findByUserIdIn(userIds);
-
-        Collections.sort(blogs, Comparator.comparing(Blog::getDate).reversed());
-        
+        List<Blog> blogs = blogRepository.findByUserIdIn(userIds);
+        blogs.sort(Comparator.comparing(Blog::getDate).reversed());
         return blogs;
     }
 
+    @Override
+    public List<UserPair> getLikes(String blogId) {
+        Blog blog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
+        return blog.getLikes();
+    }
 
+    @Override
+    public Blog getBlog(String userId, String blogId) {
+        Blog blog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
 
-	@Override
-	public List<UserPair> getLikes(String blogId) {
-		Blog blog=blogRepository.findById(blogId).orElse(null);
-		if(blog!=null) {
-			return blog.getLikes();
-		}
-		
-		return null;
-		}
-
-	@Override
-	public Blog getBlog(String userId, String blogId) {
-		Blog blog = blogRepository.findById(blogId).orElse(null);
-        if (blog != null) {
-            if(blog.getUserId().equals(userId)) {
-            	return blog;
-            }
+        if (!blog.getUserId().equals(userId)) {
+            throw new RuntimeException("You are not authorized to access this blog");
         }
-		return null;
-	}
+        return blog;
+    }
 
-	@Override
-	public List<Blog> getAllBlogs(String userId) {
-		return blogRepository.findAllByUserId(userId);
-	}
+    @Override
+    public List<Blog> getAllBlogsByUser(String userId) {
+        return blogRepository.findAllByUserId(userId);
+    }
 
-	@Override
-	public List<String> getCommentIds(String blogId) {
-		Blog blog=blogRepository.findById(blogId).orElse(null);
-		if(blog!=null) {
-			return blog.getCommentIds();
-		}
-		
-		return null;
-	}
+    @Override
+    public List<String> getCommentIds(String blogId) {
+        Blog blog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
+        return blog.getCommentIds();
+    }
 
-	@Override
-	public void deleteComment(String commentId, String blogId) {
-		Blog blog=blogRepository.findById(blogId).orElse(null);
-		if(blog!=null) {
-			blog.getCommentIds().remove(commentId);
-			blog.setCommentIds(blog.getCommentIds());
-			blogRepository.save(blog);
-		}
-	}
+    @Override
+    public void deleteComment(String commentId, String blogId) {
+        Blog blog = blogRepository.findById(blogId)
+                .orElseThrow(() -> new RuntimeException("Blog not found with id: " + blogId));
+
+        if (!blog.getCommentIds().remove(commentId)) {
+            throw new RuntimeException("Comment not found with id: " + commentId);
+        }
+        blogRepository.save(blog);
+    }
+
+    @Override
+    public List<Blog> getAllPublicBlogs() {
+        return blogRepository.findAll();
+    }
 }
