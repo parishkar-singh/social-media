@@ -20,14 +20,14 @@ const AuthInput: React.FC<AuthInputProps> = ({
                                                  error,
                                              }) => {
     return (
-        <div className={`flex flex-col w-full gap-1`}>
-            <div className={`flex w-full bg-white rounded-lg text-black items-center gap-2 px-4 py-2 border-2`}>
+        <div className={`flex flex-col  w-full gap-1`}>
+            <div className={`flex w-full bg-white dark:text-white dark:bg-neutral-800  rounded-3xl text-black items-center gap-2 px-4 py-2 border-2`}>
                 <Icon />
                 <input
-                    className={`w-full text-black border-none outline-none`}
+                    className={`w-full text-black dark:text-white bg-white dark:bg-neutral-800 border-none outline-none`}
                     type={type}
                     placeholder={placeholder}
-                    {...register(name)} // registering the input with react-hook-form
+                    {...register(name)}
                 />
             </div>
             {error && (

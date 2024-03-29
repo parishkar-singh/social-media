@@ -49,15 +49,14 @@ const SignUp = () => {
         }
     }
     return (
-        <div className={`bg-white md:p-24 p-5 flex flex-col items-center justify-center`}>
+        <div className={`transition duration-200 bg-white dark:bg-black text-black dark:bg-text-white md:p-24 p-5 flex flex-col items-center justify-center`}>
             <div className={` flex flex-col items-center md:items-start gap-8`}>
-                {/*<Image width={100} alt={``} height={100} src={`/heydaw.png`} className={`w-28`}/>*/}
-                <h1 className={`text-neutral-900 text-2xl md:text-4xl font-bold  text-center md:text-start `}>Sign Up on High</h1>
+                <h1 className={`text-neutral-900 text-2xl md:text-4xl dark:text-white font-bold  text-center md:text-start `}>Sign Up on High</h1>
                 <div className={`w-full `}>
                     <hr/>
                 </div>
                 {/*<p className={`text-red-500`}>{registerError}</p>*/}
-                <form  onSubmit={handleSubmit(onSubmit)}>
+                <form className={"flex flex-col justify-center items-center"} onSubmit={handleSubmit(onSubmit)}>
                     <div className={`flex flex-col gap-4`}>
                         <AuthInput
                             icon={IoIosContact}

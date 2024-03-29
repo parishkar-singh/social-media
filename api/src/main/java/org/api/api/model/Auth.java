@@ -1,5 +1,6 @@
 package org.api.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"accessExpiration", "refreshExpiration"}, allowGetters = true)
 @Document("auth")
 public class Auth {
     @Id

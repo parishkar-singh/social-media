@@ -6,14 +6,14 @@ export interface BlogItemProps {
     owner: string;
     uploaderId:string
     title: string;
-    description: string;
+    description?: string;
     date?: Date;
     content?:string
     avgReadingTime: string;
     categories: string[];
-    blogPic:string
+    blogPic?:string
     commentIds?:string[];
-    likes:object[]
+    likes?:object[]
     visibility?:string
 }
 export interface TrendingBlogItemProps {

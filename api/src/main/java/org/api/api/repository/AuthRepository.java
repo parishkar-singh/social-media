@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface AuthRepository extends MongoRepository <Auth, String>{
     Optional<Auth> findByUsername(String username);
     boolean existsByUsername(String username);
+    Auth findByAccessToken(String accessToken);
 
 }

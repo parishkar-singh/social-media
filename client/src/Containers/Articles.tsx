@@ -7,15 +7,15 @@ import {getAllPublicBlogs} from "@/Rest/Blog/BlogGET";
 
 
 const Articles: React.FC = () => {
-    const [posts, setPosts] = useState<BlogItemProps[]>([]);
+    const [articlePosts, setArticlePosts] = useState<BlogItemProps[]>([]);
 
     useEffect(() => {
         const fetchBlogData = async () => {
             try {
                 const response =await getAllPublicBlogs();
-                console.log(response)
+                // console.log(response)
                 // const response =  generateBlogTestData();
-                setPosts(response);
+                setArticlePosts(response);
 
             } catch (error) {
                 console.error("Error fetching blog data:", error);
@@ -28,7 +28,7 @@ const Articles: React.FC = () => {
     }, []);
     return (
         <div className={`p-10 flex w-2/3  flex-col gap-5 `}>
-            {posts.map((post, index) => (
+            {articlePosts.map((post, index) => (
                 <BlogItem
                     key={index}
                     owner={post.owner}
